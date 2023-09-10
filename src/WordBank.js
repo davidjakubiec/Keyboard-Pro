@@ -4,7 +4,7 @@ import { Context } from './App'
 const WordBank = () => {
     
     const [placeholder, setPlaceholder] = useState('');
-    const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank} = useContext(Context);
+    const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults} = useContext(Context);
 
     useEffect(() => {
         fetch('http://localhost:3000/api/example/wordbank')

@@ -4,18 +4,26 @@ import { Context } from './App'
 const TimestampTextBox = () => {
   const [text, setText] = useState('');
   const [prevText, setPrevText] = useState('');
-  const [timestamps, setTimestamps] = useState([]);
-  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank} = useContext(Context);
+  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress} = useContext(Context);
 
-  const handleKeyPress = (event) => {
-    const timestamp = new Date().toISOString(); // Get the current timestamp
-    const newTimestamps = [...timestamps, timestamp];
-    setTimestamps(newTimestamps); 
-    //immobilize flashing bar to the right so you can't click back to earlier letters
-  };
+
 
   useEffect(() => {
     const handleKeyDown = (event) => { 
+      //update the testResults Object for each key down
+      const updatedTestResults = { ...testResults };
+      const currLetter = wordBank[wordIdx].word[document.getElementById('typed-input').value.length];
+      // console.log(testResults);
+      updatedTestResults[`${new Date().toISOString()}`] = {
+        "word": wordBank[wordIdx].word,
+        "typedInputLetter": event.key,
+        "expectedLetter": currLetter,
+        "correct": event.key === currLetter
+      };
+
+      setTestResults(updatedTestResults);
+
+      //handle if users presses spacebar
       if (event.key === ' ' && !event.repeat) {
         // Increment the counter when the space bar is pressed
         setWordIdx((wordIdx) => wordIdx + 1);
@@ -41,6 +49,8 @@ const TimestampTextBox = () => {
 
 
     const handleChange = (event) => { 
+      setTestInProgress(true);
+      console.log(testInProgress)
       if (event.target.value != ' ') {
         //get the last typed letter
         const newLetter = event.target.value.slice(-1);
@@ -61,17 +71,17 @@ const TimestampTextBox = () => {
         type="text"
         value={text}
         onChange={handleChange}
-        onKeyDown={handleKeyPress}
         placeholder="Timer will start when you start typing"
       />
-      <div>
+      <div></div>
+      {/* <div>
         <h3>Timestamps for each keypress:</h3>
         <ul>
           {timestamps.map((timestamp, index) => (
             <li key={index}>{timestamp}</li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };
