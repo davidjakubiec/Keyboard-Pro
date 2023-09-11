@@ -1,9 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { Context } from './App'
 import Timer from './Timer'
 import TimestampTextBox from './TimestampTextBox'
+import * as d3 from 'd3';
 
 const Results = () => {
+
     const { text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
     // const [correctKeystrokes, setCorrectKeystrokes] = useState(0);
@@ -32,12 +34,32 @@ const Results = () => {
             wordResultsArray.forEach((el, idx) => {
                 if (el === wordBank[idx].word) correctWords++
             })
+
+            // fetch('http://localhost:3000/api/example/wordbank')
+            // .then((response) => response.json())
+            // .then((result) => {
+            //   setWordBank(result);
+            // })
+            // .catch((error) => {
+            //   console.error('Error fetching data:', error);
+            // });
         }
     },[testResults, viewResults])
 
 
 
         const handleClick = (e) => {
+            //GET new words for the wordbank components
+            //fix latency
+            fetch('http://localhost:3000/api/example/wordbank')
+            .then((response) => response.json())
+            .then((result) => {
+              setWordBank(result);
+            })
+            .catch((error) => {
+              console.error('Error fetching data:', error);
+            });
+
             //reset all state variables
             setViewResults(false);
             setLetterIdx(-1);
@@ -52,15 +74,7 @@ const Results = () => {
             incorrectKeystrokes = 0;
             correctWords = 0;
 
-            //GET new words for the wordbank components
-            fetch('http://localhost:3000/api/example/wordbank')
-            .then((response) => response.json())
-            .then((result) => {
-              setWordBank(result);
-            })
-            .catch((error) => {
-              console.error('Error fetching data:', error);
-            });
+
         }
     
 
@@ -74,6 +88,7 @@ const Results = () => {
         <div>Incorrect Words: {wordResultsArray.length - correctWords}</div>
         <div>Correct Letters:  {correctKeystrokes}</div>
         <div>Letter Accuracy: {correctKeystrokes/(keystrokes-wordIdx)}</div>
+
         <button onClick={handleClick}>Try Again</button>
         <div></div></> : <div/> }
         

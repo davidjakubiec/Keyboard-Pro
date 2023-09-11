@@ -53,8 +53,8 @@ const TimestampTextBox = () => {
       if (event.target.value != ' ') {
         //get the last typed letter
         const newLetter = event.target.value.slice(-1);
-        //update prevText
-        setPrevText(text);
+
+
         //update text
         setText(event.target.value);
         //set text to red if there is a typo/set back to grey if the typo is resolved
