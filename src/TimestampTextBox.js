@@ -4,7 +4,7 @@ import { Context } from './App'
 const TimestampTextBox = () => {
   const [text, setText] = useState('');
   const [prevText, setPrevText] = useState('');
-  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, correctWordCount, setCorrectWordCount} = useContext(Context);
+  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, wordResultsArray, setWordResultsArray, viewResults} = useContext(Context);
 
 
 
@@ -13,10 +13,8 @@ const TimestampTextBox = () => {
       //update the testResults Object for each key down
       const updatedTestResults = { ...testResults };
       const currLetter = wordBank[wordIdx].word[document.getElementById('typed-input').value.length];
-      const currWord = document.getElementById('typed-input').value == wordBank[wordIdx].word
-      const test1 = document.getElementById('typed-input').value
-      const test2 = wordBank[wordIdx].word
-      // console.log(testResults);
+      const currWord = document.getElementById('typed-input').value
+
       updatedTestResults[`${new Date().toISOString()}`] = {
         "word": wordBank[wordIdx].word,
         "typedInputLetter": event.key,
@@ -28,7 +26,7 @@ const TimestampTextBox = () => {
 
       //handle if users presses spacebar
       if (event.key === ' ' && !event.repeat) {
-
+        setWordResultsArray([...wordResultsArray, currWord])
         // Increment the counter when the space bar is pressed
         setWordIdx((wordIdx) => wordIdx + 1);
         //clear the input box
@@ -70,13 +68,15 @@ const TimestampTextBox = () => {
         
   return (
     <div>
+      {viewResults ? <div></div> : 
       <input
         id="typed-input"
         type="text"
         value={text}
         onChange={handleChange}
-        placeholder="Timer will start when you start typing"
+        placeholder={testInProgress ? "" : "Timer will start when you start typing"}
       />
+  }
     </div>
   );
 };

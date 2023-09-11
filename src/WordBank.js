@@ -4,7 +4,7 @@ import { Context } from './App'
 const WordBank = () => {
     
     const [placeholder, setPlaceholder] = useState('');
-    const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults} = useContext(Context);
+    const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, viewResults} = useContext(Context);
 
     useEffect(() => {
         fetch('http://localhost:3000/api/example/wordbank')
@@ -20,13 +20,15 @@ const WordBank = () => {
 
   return (
     <div>
+      { viewResults ? <div></div> : 
+              words.map((str, index) => (
+                <>
+                <span style={{ backgroundColor: index === 0 ? '#D3D3D3' : 'transparent' }} id={index}>{str}</span>
+                <span>{" "}</span>
+                </>
+            ))
+      }
 
-        {words.map((str, index) => (
-            <>
-            <span style={{ backgroundColor: index === 0 ? '#D3D3D3' : 'transparent' }} id={index}>{str}</span>
-            <span>{" "}</span>
-            </>
-        ))}
     </div>
 
   )

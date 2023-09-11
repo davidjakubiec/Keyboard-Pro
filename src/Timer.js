@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Context } from './App';
 
 const Timer = () => {
-  const [seconds, setSeconds] = useState(6);
+  const [seconds, setSeconds] = useState(60);
   const { testInProgress, setTestInProgress, viewResults, setViewResults } = useContext(Context);
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const Timer = () => {
 
   return (
     <div>
-      <h1>Countdown Timer</h1>
-      <p>Time Remaining: {seconds} seconds</p>
-      <div>test in Progress: {testInProgress ? 'true' : 'false'}</div>
-      <div>view Results: {viewResults ? 'true' : 'false'}</div>
+        {viewResults ? <div></div> : 
+      <><h1>Countdown Timer</h1>
+      <div>Time Remaining: {seconds} seconds</div></>
+  }
     </div>
   );
 }
