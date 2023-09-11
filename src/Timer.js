@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Context } from './App';
 
 const Timer = () => {
-  const [seconds, setSeconds] = useState(60);
-  const { testInProgress, setTestInProgress, viewResults, setViewResults } = useContext(Context);
+
+  const { testInProgress, setTestInProgress, viewResults, setViewResults, seconds, setSeconds, text, setText } = useContext(Context);
 
   useEffect(() => {
     if (testInProgress) {

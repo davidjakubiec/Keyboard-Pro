@@ -10,6 +10,8 @@ export const Context = React.createContext();
 export function App() {
 
     const [wordIdx, setWordIdx] = useState(0);
+    const [seconds, setSeconds] = useState(6);
+    const [text, setText] = useState('')
     const [letterIdx, setLetterIdx] = useState(-1);
     const [wordResultsArray, setWordResultsArray] = useState([]);
     const [wordBank, setWordBank] = useState([]);
@@ -19,7 +21,7 @@ export function App() {
 
     return (
   
-        <Context.Provider value={{ wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, setWordResultsArray}}>
+        <Context.Provider value={{ text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, setWordResultsArray, seconds, setSeconds}}>
             <h1> Welcome { new Date().toString() } </h1>
              <WordBank />
             <TimestampTextBox /> 

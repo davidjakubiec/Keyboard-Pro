@@ -2,11 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Context } from './App'
 
 const TimestampTextBox = () => {
-  const [text, setText] = useState('');
-  const [prevText, setPrevText] = useState('');
-  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, wordResultsArray, setWordResultsArray, viewResults} = useContext(Context);
 
-
+  const {text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, wordResultsArray, setWordResultsArray, viewResults} = useContext(Context);
 
   useEffect(() => {
     const handleKeyDown = (event) => { 
