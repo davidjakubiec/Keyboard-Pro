@@ -4,7 +4,7 @@ import { Context } from './App'
 const TimestampTextBox = () => {
   const [text, setText] = useState('');
   const [prevText, setPrevText] = useState('');
-  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress} = useContext(Context);
+  const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, correctWordCount, setCorrectWordCount} = useContext(Context);
 
 
 
@@ -13,6 +13,9 @@ const TimestampTextBox = () => {
       //update the testResults Object for each key down
       const updatedTestResults = { ...testResults };
       const currLetter = wordBank[wordIdx].word[document.getElementById('typed-input').value.length];
+      const currWord = document.getElementById('typed-input').value == wordBank[wordIdx].word
+      const test1 = document.getElementById('typed-input').value
+      const test2 = wordBank[wordIdx].word
       // console.log(testResults);
       updatedTestResults[`${new Date().toISOString()}`] = {
         "word": wordBank[wordIdx].word,
@@ -25,6 +28,7 @@ const TimestampTextBox = () => {
 
       //handle if users presses spacebar
       if (event.key === ' ' && !event.repeat) {
+
         // Increment the counter when the space bar is pressed
         setWordIdx((wordIdx) => wordIdx + 1);
         //clear the input box
@@ -50,7 +54,7 @@ const TimestampTextBox = () => {
 
     const handleChange = (event) => { 
       setTestInProgress(true);
-      console.log(testInProgress)
+      // console.log(testInProgress)
       if (event.target.value != ' ') {
         //get the last typed letter
         const newLetter = event.target.value.slice(-1);
@@ -73,15 +77,6 @@ const TimestampTextBox = () => {
         onChange={handleChange}
         placeholder="Timer will start when you start typing"
       />
-      <div></div>
-      {/* <div>
-        <h3>Timestamps for each keypress:</h3>
-        <ul>
-          {timestamps.map((timestamp, index) => (
-            <li key={index}>{timestamp}</li>
-          ))}
-        </ul>
-      </div> */}
     </div>
   );
 };
