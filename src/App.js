@@ -5,25 +5,19 @@ import Timer from './Timer'
 import Results from './Results'
 import BarChart from './BarChart';
 
-
 export const Context = React.createContext();
-
-// const data = [
-//     { label: 'A', value: 10 },
-//     { label: 'B', value: 20 },
-//     { label: 'C', value: 15 },
-//     { label: 'D', value: 25 },
-//   ];
 
 export function App() {
 
 
     const [data, setData] = useState([
-        { label: 'A', value: 10 },
-        { label: 'B', value: 20 },
-        { label: 'C', value: 15 },
-        { label: 'D', value: 25 },
+        // { label: 'A', value: 10 },
+        // { label: 'B', value: 20 },
+        // { label: 'C', value: 15 },
+        // { label: 'D', value: 29 },
       ])
+
+    //   setData([{ label: 'E', value: 30}])
 
     const [wordIdx, setWordIdx] = useState(0);
     const [seconds, setSeconds] = useState(2);

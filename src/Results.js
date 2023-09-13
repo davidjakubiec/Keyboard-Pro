@@ -15,6 +15,7 @@ const Results = () => {
     let testResultsArray = Object.values(testResults);
     let timeStampsArray = Object.keys(testResults);
 
+
     useEffect(() => {
         correctKeystrokes = 0;
         incorrectKeystrokes = 0;
@@ -35,16 +36,16 @@ const Results = () => {
                 // This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
                 
             })
-                //update the data
-                for (let i = 0; i < testResultsArray.length; i++) {
-                    // console.log(element)
-                    data.push({
-                        label: testResultsArray[i].typedInputLetter,
-                        value: timeStampsArray[i]
-                    })
-                }
-
-                setData(data);
+            console.log(timeStampsArray[0], typeof(new Date(timeStampsArray[1])), new Date(timeStampsArray[1])-new Date(timeStampsArray[0]))
+            // setData([{label: 'E', value: 30}])
+            const newData = []
+            for (let i = 0; i < testResultsArray.length; i++) {
+                newData.push({
+                    label: i,
+                    value: i > 0 ? new Date(timeStampsArray[i])-new Date(timeStampsArray[i-1]) : 0
+                })
+            }
+            setData(newData)
 
             //count correct words
             wordResultsArray.forEach((el, idx) => {
@@ -52,8 +53,12 @@ const Results = () => {
             })
 
         }
-    },[testResults, viewResults, data, setData])
+    },[testResults, viewResults])
 
+
+// if (viewResults) console.log('test1', JSON.stringify(data))
+    //   if (viewResults) setData([{ label: 'E', value: 30}])
+    
 
         const handleClick = (e) => {
             //GET new words for the wordbank components

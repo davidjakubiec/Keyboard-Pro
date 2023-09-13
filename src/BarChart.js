@@ -4,7 +4,7 @@ import { Context } from './App'
 import * as d3 from 'd3';
 
 const BarChart = () => {
-  const {data, setData, viewResults} = useContext(Context);
+  const {data, setData, viewResults, testResults} = useContext(Context);
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -56,11 +56,18 @@ const BarChart = () => {
       .attr('class', 'y-axis')
       .call(d3.axisLeft(yScale).ticks(5));
 
+
+
   }, [data]);
 
-  return (
-    <div>
 
+
+  
+
+  return (
+
+    <div>
+        
         <svg ref={svgRef} width={500} height={300}></svg> : <div></div> 
     </div>
   );
