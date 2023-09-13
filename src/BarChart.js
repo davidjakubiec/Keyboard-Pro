@@ -56,7 +56,10 @@ const BarChart = () => {
       .attr('class', 'y-axis')
       .call(d3.axisLeft(yScale).ticks(5));
 
-
+    // Return a function to clean up the chart when the component unmounts
+    return () => {
+      svg.selectAll('rect').remove();
+    };
 
   }, [data]);
 

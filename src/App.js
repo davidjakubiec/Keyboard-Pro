@@ -17,8 +17,6 @@ export function App() {
         // { label: 'D', value: 29 },
       ])
 
-    //   setData([{ label: 'E', value: 30}])
-
     const [wordIdx, setWordIdx] = useState(0);
     const [seconds, setSeconds] = useState(2);
     const [text, setText] = useState('')

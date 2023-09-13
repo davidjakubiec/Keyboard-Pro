@@ -6,7 +6,7 @@ import * as d3 from 'd3';
 
 const Results = () => {
 
-    const { data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
+    const {  data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
 
     let correctKeystrokes = 0;
@@ -24,24 +24,19 @@ const Results = () => {
 
 
         if (viewResults) {
+
             testResultsArray.forEach((el, idx) => 
             {
                 //count correct, incorrect, and backspace strokes
                 if (el.correct) correctKeystrokes++
                 else if (el.typedInputLetter != 'Backspace') incorrectKeystrokes++
-
-
-
-                // 23react-dom.development.js:86 Warning: Maximum update depth exceeded. 
-                // This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
-                
             })
-            console.log(timeStampsArray[0], typeof(new Date(timeStampsArray[1])), new Date(timeStampsArray[1])-new Date(timeStampsArray[0]))
-            // setData([{label: 'E', value: 30}])
+
+
             const newData = []
             for (let i = 0; i < testResultsArray.length; i++) {
                 newData.push({
-                    label: i,
+                    label: `${i} ${testResultsArray[i].typedInputLetter}`,
                     value: i > 0 ? new Date(timeStampsArray[i])-new Date(timeStampsArray[i-1]) : 0
                 })
             }
@@ -53,12 +48,7 @@ const Results = () => {
             })
 
         }
-    },[testResults, viewResults])
-
-
-// if (viewResults) console.log('test1', JSON.stringify(data))
-    //   if (viewResults) setData([{ label: 'E', value: 30}])
-    
+    },[testResults, viewResults, wordResultsArray])
 
         const handleClick = (e) => {
             //GET new words for the wordbank components
@@ -80,6 +70,7 @@ const Results = () => {
             setWordResultsArray([]);
             setSeconds(6);
             setText("")
+            setData([])
 
             //reset component variables
             correctKeystrokes = 0;
