@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react'
+import React, { useContext, useState, useEffect, useRef, Component } from 'react'
 import { Context } from './App'
 import Timer from './Timer'
 import TimestampTextBox from './TimestampTextBox'
@@ -6,46 +6,53 @@ import * as d3 from 'd3';
 
 const Results = () => {
 
-    const { text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
+    const { data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
-    // const [correctKeystrokes, setCorrectKeystrokes] = useState(0);
-    // const [incorrectKeystrokes, setIncorrectKeystrokes] = useState(0);
-    // const [correctWords, setCorrectWords] = useState(0);
+
     let correctKeystrokes = 0;
     let incorrectKeystrokes = 0;
     let correctWords = 0;
     let testResultsArray = Object.values(testResults);
+    let timeStampsArray = Object.keys(testResults);
 
     useEffect(() => {
         correctKeystrokes = 0;
         incorrectKeystrokes = 0;
         correctWords = 0;
         testResultsArray = Object.values(testResults);
+
+
         if (viewResults) {
-            testResultsArray.forEach((el) => 
+            testResultsArray.forEach((el, idx) => 
             {
                 //count correct, incorrect, and backspace strokes
                 if (el.correct) correctKeystrokes++
                 else if (el.typedInputLetter != 'Backspace') incorrectKeystrokes++
+
+
+
+                // 23react-dom.development.js:86 Warning: Maximum update depth exceeded. 
+                // This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
                 
             })
-    
+                //update the data
+                for (let i = 0; i < testResultsArray.length; i++) {
+                    // console.log(element)
+                    data.push({
+                        label: testResultsArray[i].typedInputLetter,
+                        value: timeStampsArray[i]
+                    })
+                }
+
+                setData(data);
+
             //count correct words
             wordResultsArray.forEach((el, idx) => {
                 if (el === wordBank[idx].word) correctWords++
             })
 
-            // fetch('http://localhost:3000/api/example/wordbank')
-            // .then((response) => response.json())
-            // .then((result) => {
-            //   setWordBank(result);
-            // })
-            // .catch((error) => {
-            //   console.error('Error fetching data:', error);
-            // });
         }
-    },[testResults, viewResults])
-
+    },[testResults, viewResults, data, setData])
 
 
         const handleClick = (e) => {
@@ -88,7 +95,7 @@ const Results = () => {
         <div>Incorrect Words: {wordResultsArray.length - correctWords}</div>
         <div>Correct Letters:  {correctKeystrokes}</div>
         <div>Letter Accuracy: {correctKeystrokes/(keystrokes-wordIdx)}</div>
-
+        <div>{JSON.stringify(data)}</div>
         <button onClick={handleClick}>Try Again</button>
         <div></div></> : <div/> }
         

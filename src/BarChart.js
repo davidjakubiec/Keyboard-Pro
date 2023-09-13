@@ -1,8 +1,10 @@
 // BarChart.js
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
+import { Context } from './App'
 import * as d3 from 'd3';
 
-const BarChart = ({ data }) => {
+const BarChart = () => {
+  const {data, setData, viewResults} = useContext(Context);
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -57,8 +59,10 @@ const BarChart = ({ data }) => {
   }, [data]);
 
   return (
+    <div>
 
-    <svg ref={svgRef} width={500} height={300}></svg>
+        <svg ref={svgRef} width={500} height={300}></svg> : <div></div> 
+    </div>
   );
 };
 
