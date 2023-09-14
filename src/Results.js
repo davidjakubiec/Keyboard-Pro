@@ -6,7 +6,7 @@ import * as d3 from 'd3';
 
 const Results = () => {
 
-    const {  data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
+    const {  colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
 
     let correctKeystrokes = 0;
@@ -24,14 +24,15 @@ const Results = () => {
 
 
         if (viewResults) {
-
+            const tempColorsArray = [];
             testResultsArray.forEach((el, idx) => 
             {
                 //count correct, incorrect, and backspace strokes
                 if (el.correct) correctKeystrokes++
                 else if (el.typedInputLetter != 'Backspace') incorrectKeystrokes++
+                tempColorsArray.push(el.color);
             })
-
+            setColorsArray(tempColorsArray);
 
             const newData = []
             for (let i = 0; i < testResultsArray.length; i++) {

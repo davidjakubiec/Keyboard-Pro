@@ -11,12 +11,19 @@ const TimestampTextBox = () => {
       const updatedTestResults = { ...testResults };
       const currLetter = wordBank[wordIdx].word[document.getElementById('typed-input').value.length];
       const currWord = document.getElementById('typed-input').value
+      let color = '';
+
+      if (event.key === " ") color = 'green'
+      else if (event.key === "Backspace") color = 'orange'
+      else if (event.key !== currLetter) color = 'red'
+      else color = 'steelblue'
 
       updatedTestResults[`${new Date().toISOString()}`] = {
         "word": wordBank[wordIdx].word,
         "typedInputLetter": event.key,
         "expectedLetter": currLetter,
-        "correct": event.key === currLetter
+        "correct": event.key === currLetter,
+        "color": color
       };
 
       setTestResults(updatedTestResults);

@@ -4,7 +4,7 @@ import { Context } from './App'
 import * as d3 from 'd3';
 
 const BarChart = () => {
-  const {data, setData, viewResults, testResults} = useContext(Context);
+  const {colorsArray, data, setData, viewResults, testResults} = useContext(Context);
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -32,6 +32,11 @@ const BarChart = () => {
       .nice()
       .range([chartHeight, 0]);
 
+// Define a color scale
+const colorScale = d3.scaleOrdinal()
+  .domain(data.map((d) => d.label))
+  .range(colorsArray);
+
     // Create bars
     svg
       .selectAll('.bar')
@@ -41,6 +46,7 @@ const BarChart = () => {
       .attr('class', 'bar')
       .attr('x', (d) => xScale(d.label))
       .attr('y', (d) => yScale(d.value))
+      .attr('fill', (d) => colorScale(d.label))
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => chartHeight - yScale(d.value));
 
