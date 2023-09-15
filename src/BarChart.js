@@ -76,8 +76,8 @@ const colorScale = d3.scaleOrdinal()
   return (
 
     <div>
-        
-        <svg ref={svgRef} width={500} height={300}></svg> : <div></div> 
+        {viewResults ? 
+        <svg ref={svgRef} width={500} height={300}></svg> : <div></div> }
     </div>
   );
 };
