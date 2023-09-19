@@ -20,20 +20,9 @@ const WordBank = () => {
 
 
 
-      useEffect(() => {
-        const scrollButton = document.getElementById('scrollButton');
-        const scrollableList = document.querySelector('.wordbank-container');
-
-        scrollButton.addEventListener('click', () => {
-          // Scroll the scrollable list by a specified amount
-          scrollableList.scrollTop += 74; // Adjust the value as needed
-        });
-      }, [])
-
 
   return (
-    <div >
-      <button id="scrollButton">button</button>
+
       <div class="wordbank-container">
         { viewResults ? <div></div> : 
                 words.map((str, index) => (
@@ -44,7 +33,7 @@ const WordBank = () => {
               ))
         }
       </div>
-    </div>
+
     
   )
 }

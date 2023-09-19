@@ -38,6 +38,8 @@ const TimestampTextBox = () => {
         //set letterIdx to zero
         setLetterIdx(-1);
 
+        if (document.getElementById(wordIdx+1).getBoundingClientRect().left < document.getElementById(wordIdx).getBoundingClientRect().left) document.querySelector('.wordbank-container').scrollTop += 74
+
         //highlight the next word
         document.getElementById(`${wordIdx+1}`).style.backgroundColor = '#D3D3D3'
         //unhighlight the previous word

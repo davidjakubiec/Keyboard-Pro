@@ -18,7 +18,7 @@ export function App() {
       ])
     const [colorsArray, setColorsArray] = useState([]);
     const [wordIdx, setWordIdx] = useState(0);
-    const [seconds, setSeconds] = useState(2);
+    const [seconds, setSeconds] = useState(10);
     const [text, setText] = useState('')
     const [letterIdx, setLetterIdx] = useState(-1);
     const [wordResultsArray, setWordResultsArray] = useState([]);
@@ -31,10 +31,10 @@ export function App() {
   
         <Context.Provider value={{ colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, setWordResultsArray, seconds, setSeconds}}>
              <WordBank />
-            {/* <TimestampTextBox />  */}
-            {/* <Timer /> 
+            <TimestampTextBox /> 
+            <Timer /> 
             <Results />
-            <BarChart /> */}
+            <BarChart />
             <div></div>
         </Context.Provider>
        
