@@ -18,19 +18,34 @@ const WordBank = () => {
       }, []);
       const words = wordBank.map((row) => row.word);
 
+
+
+      useEffect(() => {
+        const scrollButton = document.getElementById('scrollButton');
+        const scrollableList = document.querySelector('.wordbank-container');
+
+        scrollButton.addEventListener('click', () => {
+          // Scroll the scrollable list by a specified amount
+          scrollableList.scrollTop += 74; // Adjust the value as needed
+        });
+      }, [])
+
+
   return (
-    <div className="wordbank-container">
-      { viewResults ? <div></div> : 
-              words.map((str, index) => (
-                <>
-                <span className="wordbank" style={{ backgroundColor: index === 0 ? '#D3D3D3' : 'transparent' }} id={index}>{str}</span>
-                <span className="wordbank">{" "}</span>
-                </>
-            ))
-      }
-
+    <div >
+      <button id="scrollButton">button</button>
+      <div class="wordbank-container">
+        { viewResults ? <div></div> : 
+                words.map((str, index) => (
+                  <>
+                  <span className="wordbank" style={{ backgroundColor: index === 0 ? '#D3D3D3' : 'transparent' }} id={index}>{str}</span>
+                  <span className="wordbank">{" "}</span>
+                  </>
+              ))
+        }
+      </div>
     </div>
-
+    
   )
 }
 

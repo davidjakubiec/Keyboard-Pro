@@ -23,7 +23,7 @@ exampleController.getWordBank = (req, res, next) => {
 
   const search = `SELECT * FROM dictionary
   ORDER BY RANDOM()
-  LIMIT 16`;
+  LIMIT 200`;
 
   db
     .query(search)
