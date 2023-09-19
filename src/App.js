@@ -30,12 +30,11 @@ export function App() {
     return (
   
         <Context.Provider value={{ colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, setWordResultsArray, seconds, setSeconds}}>
-            <h1> Welcome { new Date().toString() } </h1>
              <WordBank />
-            <TimestampTextBox /> 
-            <Timer /> 
+            {/* <TimestampTextBox />  */}
+            {/* <Timer /> 
             <Results />
-            <BarChart />
+            <BarChart /> */}
             <div></div>
         </Context.Provider>
        

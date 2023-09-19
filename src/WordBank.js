@@ -19,12 +19,12 @@ const WordBank = () => {
       const words = wordBank.map((row) => row.word);
 
   return (
-    <div>
+    <div className="wordbank-container">
       { viewResults ? <div></div> : 
               words.map((str, index) => (
                 <>
-                <span style={{ backgroundColor: index === 0 ? '#D3D3D3' : 'transparent' }} id={index}>{str}</span>
-                <span>{" "}</span>
+                <span className="wordbank" style={{ backgroundColor: index === 0 ? '#D3D3D3' : 'transparent' }} id={index}>{str}</span>
+                <span className="wordbank">{" "}</span>
                 </>
             ))
       }

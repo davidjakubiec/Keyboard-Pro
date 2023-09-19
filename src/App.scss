@@ -1,8 +1,36 @@
-h1 {
-    color: blue;
-}
-
 input {
     width: 1000px;
     height: 300px;
+}
+
+body {
+    background-color: #1A2032;
+  }
+
+.wordbank {
+    color:white;
+    font-family: 'Inter', sans-serif;
+    font-size: 64px;
+    transition: font-size 0.5s ease-in-out;
+}
+
+// .wordbank:hover {
+//     font-size : 200px; 
+// }
+
+.wordbank-container {
+    height: 150px;
+    overflow: auto;
+}
+
+.wordbank-container::-webkit-scrollbar {
+    width: 0.8em; 
+}
+  
+.wordbank-container::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+  
+.wordbank-container::-webkit-scrollbar-thumb {
+    background-color: transparent; 
 }
