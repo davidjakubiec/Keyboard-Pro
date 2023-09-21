@@ -80,7 +80,7 @@ const TimestampTextBox = () => {
         type="text"
         value={text}
         onChange={handleChange}
-        placeholder={testInProgress ? "" : "Timer will start when you start typing"}
+        placeholder={testInProgress ? "" : "Start typing here ..."}
       />
   }
     </div>

@@ -10,16 +10,11 @@ export const Context = React.createContext();
 export function App() {
 
 
-    const [data, setData] = useState([
-        // { label: 'A', value: 10 },
-        // { label: 'B', value: 20 },
-        // { label: 'C', value: 15 },
-        // { label: 'D', value: 29 },
-      ])
+    const [data, setData] = useState([]);
     const [colorsArray, setColorsArray] = useState([]);
     const [wordIdx, setWordIdx] = useState(0);
     const [seconds, setSeconds] = useState(10);
-    const [text, setText] = useState('')
+    const [text, setText] = useState('');
     const [letterIdx, setLetterIdx] = useState(-1);
     const [wordResultsArray, setWordResultsArray] = useState([]);
     const [wordBank, setWordBank] = useState([]);
@@ -27,15 +22,18 @@ export function App() {
     const [testInProgress, setTestInProgress] = useState(false);
     const [viewResults, setViewResults] = useState(false);
 
+    const contextObject = { colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
+        wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, 
+        setWordResultsArray, seconds, setSeconds}
+
     return (
   
-        <Context.Provider value={{ colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, setWordResultsArray, seconds, setSeconds}}>
-             <WordBank />
+        <Context.Provider value={ contextObject }>
+            <WordBank />
             <TimestampTextBox /> 
             <Timer /> 
             <Results />
             <BarChart />
-            <div></div>
         </Context.Provider>
        
 
