@@ -69,7 +69,7 @@ const Results = () => {
             setWordIdx(0);
             setTestResults({});
             setWordResultsArray([]);
-            setSeconds(6);
+            setSeconds(60);
             setText("")
             setData([])
 

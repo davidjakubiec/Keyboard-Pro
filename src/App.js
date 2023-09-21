@@ -11,9 +11,10 @@ export function App() {
 
 
     const [data, setData] = useState([]);
+    const [editTime, setEditTime] = useState(true);
     const [colorsArray, setColorsArray] = useState([]);
     const [wordIdx, setWordIdx] = useState(0);
-    const [seconds, setSeconds] = useState(10);
+    const [seconds, setSeconds] = useState(60);
     const [text, setText] = useState('');
     const [letterIdx, setLetterIdx] = useState(-1);
     const [wordResultsArray, setWordResultsArray] = useState([]);
@@ -22,7 +23,7 @@ export function App() {
     const [testInProgress, setTestInProgress] = useState(false);
     const [viewResults, setViewResults] = useState(false);
 
-    const contextObject = { colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
+    const contextObject = { editTime, setEditTime, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
         wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, 
         setWordResultsArray, seconds, setSeconds}
 
