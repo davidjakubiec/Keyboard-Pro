@@ -28,8 +28,9 @@ const Timer = () => {
   return (
     <div>
         {viewResults ? <div></div> : 
-      <><h1>Countdown Timer</h1>
-      <div>Time Remaining: {seconds} seconds</div></>
+          <>
+            <div className='timer'>{seconds} seconds</div>
+          </>
   }
     </div>
   );

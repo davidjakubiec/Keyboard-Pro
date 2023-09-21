@@ -1,3 +1,21 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5%;
+    margin-top: 15%;
+    margin-bottom: 10%
+}
+
+.textbox-timer-container {
+    display: flex;
+}
+
+.timer {
+    color:white;
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+}
+
 input {
     width: 300px;
     height: 50px;
@@ -31,6 +49,7 @@ body {
 .wordbank-container {
     height: 148px;
     overflow: auto;
+    margin-bottom: 5%
 }
 
 .wordbank-container::-webkit-scrollbar {

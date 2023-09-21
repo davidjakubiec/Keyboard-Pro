@@ -27,15 +27,17 @@ export function App() {
         setWordResultsArray, seconds, setSeconds}
 
     return (
-  
+        <div class="flex-container">
         <Context.Provider value={ contextObject }>
             <WordBank />
+            <div class="textbox-timer-container">
             <TimestampTextBox /> 
             <Timer /> 
+            </div>
             <Results />
             <BarChart />
         </Context.Provider>
-       
+        </div>
 
     );
 };
