@@ -25,11 +25,16 @@ const Timer = () => {
     }
 , [seconds, testInProgress]);
 
+const handleClick = () => {
+  alert('The div was clicked!');
+  // You can perform other actions or dispatch custom events here
+};
+
   return (
     <div>
         {viewResults ? <div></div> : 
           <>
-            <div className='timer'>{seconds} seconds</div>
+            <div onClick={handleClick} style={{ cursor: 'pointer' }} className='timer'>{seconds} seconds</div>
           </>
   }
     </div>
