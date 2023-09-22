@@ -1,77 +1,84 @@
-.flex-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 5%;
-    margin-top: 15%;
-    margin-bottom: 10%
-}
-
-.textbox-timer-container {
-    display: flex;
-}
-
-.timer {
-    color:white;
-    font-family: 'Inter', sans-serif;
-    font-size: 48px;
-    margin-left: 5%;
-    width: 400px;
-}
-
-
-#time-input {
-    width: 40px;
-    font-size: 24px;
-    margin-right: 5%
-}
-
-input {
-    width: 300px;
-    height: 50px;
-    line-height: 20px;
-    background-color: #D9D9D9;
-    border-radius: 10px;
-    padding-left: 20px;
-}
-
-input::placeholder {
-    color: #999;
-    font-size: 24px;
-
-}
-
-body {
-    background-color: #1A2032;
-  }
-
-.wordbank {
-    color:white;
-    font-family: 'Inter', sans-serif;
-    font-size: 64px;
-    transition: font-size 0.5s ease-in-out;
-
-}
-
-// .wordbank:hover {
-//     font-size : 200px; 
+// .flex-container {
+//     display: flex;
+//     flex-direction: column;
+//     margin: 0 5%;
+//     margin-top: 15%;
+//     margin-bottom: 10%
 // }
 
-.wordbank-container {
-    height: 148px;
-    overflow: auto;
-    margin-bottom: 5%;
+// .textbox-timer-container {
+//     display: flex;
+// }
+
+.animation {
+    width: 400px;
+    height: 80px;
+    background-color: brown;
+    margin: 10px auto;
 }
 
+// .timer {
+//     color:white;
+//     font-family: 'Inter', sans-serif;
+//     font-size: 48px;
+//     margin-left: 5%;
+//     width: 400px;
+// }
 
 
-.wordbank-container::-webkit-scrollbar {
-    width: 0.8em; 
-}
+// #time-input {
+//     width: 40px;
+//     font-size: 24px;
+//     margin-right: 5%
+// }
+
+// input {
+//     width: 300px;
+//     height: 50px;
+//     line-height: 20px;
+//     background-color: #D9D9D9;
+//     border-radius: 10px;
+//     padding-left: 20px;
+// }
+
+// input::placeholder {
+//     color: #999;
+//     font-size: 24px;
+
+// }
+
+// body {
+//     background-color: #1A2032;
+//   }
+
+// .wordbank {
+//     color:white;
+//     font-family: 'Inter', sans-serif;
+//     font-size: 64px;
+//     transition: font-size 0.5s ease-in-out;
+
+// }
+
+// // .wordbank:hover {
+// //     font-size : 200px; 
+// // }
+
+// .wordbank-container {
+//     height: 148px;
+//     overflow: auto;
+//     margin-bottom: 5%;
+// }
+
+
+
+// .wordbank-container::-webkit-scrollbar {
+//     width: 0.8em; 
+// }
   
-.wordbank-container::-webkit-scrollbar-track {
-    background-color: transparent; 
-}
+// .wordbank-container::-webkit-scrollbar-track {
+//     background-color: transparent; 
+// }
   
-.wordbank-container::-webkit-scrollbar-thumb {
-    background-color: transparent; 
-}
+// .wordbank-container::-webkit-scrollbar-thumb {
+//     background-color: transparent; 
+// }

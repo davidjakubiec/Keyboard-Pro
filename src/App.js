@@ -31,13 +31,13 @@ export function App() {
     return (
         <div class="flex-container">
         <Context.Provider value={ contextObject }>
-            <WordBank />
+            {/* <WordBank />
             <div class="textbox-timer-container">
             <TimestampTextBox /> 
             <Timer /> 
             </div>
             <Results />
-            <BarChart />
+            <BarChart /> */}
             <ScrollAnimaiton />
         </Context.Provider>
         </div>
