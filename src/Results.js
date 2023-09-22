@@ -3,6 +3,9 @@ import { Context } from './App'
 import Timer from './Timer'
 import TimestampTextBox from './TimestampTextBox'
 import * as d3 from 'd3';
+import './App.scss'
+import AOS from 'aos'
+import 'aos/dist/aos.css'; 
 
 const Results = () => {
 
@@ -15,6 +18,9 @@ const Results = () => {
     let testResultsArray = Object.values(testResults);
     let timeStampsArray = Object.keys(testResults);
 
+    // useEffect(() => {
+    //     AOS.init({duration: 2000});
+    // }, [])
 
     useEffect(() => {
         correctKeystrokes = 0;
@@ -47,7 +53,7 @@ const Results = () => {
             wordResultsArray.forEach((el, idx) => {
                 if (el === wordBank[idx].word) correctWords++
             })
-
+            if (viewResults) AOS.init({duration: 2000});
         }
     },[testResults, viewResults, wordResultsArray])
 
@@ -83,18 +89,18 @@ const Results = () => {
     
 
   return (
-    <div>
-        {viewResults ? 
-        <>
-        <div>wpm: {wordIdx}</div>
+    <div className="results-first" id="results-first" data-aos="fade-right">
+
+        <><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div>WPM: {wordIdx}</div>
         <div>keystrokes: {keystrokes}</div>
         <div>Correct Words: {correctWords}</div>
         <div>Incorrect Words: {wordResultsArray.length - correctWords}</div>
         <div>Correct Letters:  {correctKeystrokes}</div>
         <div>Letter Accuracy: {correctKeystrokes/(keystrokes-wordIdx)}</div>
-        <div>{JSON.stringify(data)}</div>
+        {/* <div>{JSON.stringify(data)}</div> */}
         <button onClick={handleClick}>Try Again</button>
-        <div></div></> : <div/> }
+        </> 
         
     </div>
   )

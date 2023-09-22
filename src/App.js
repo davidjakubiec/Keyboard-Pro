@@ -29,16 +29,16 @@ export function App() {
         setWordResultsArray, seconds, setSeconds}
 
     return (
-        <div class="flex-container">
+        <div className="flex-container">
         <Context.Provider value={ contextObject }>
-            {/* <WordBank />
-            <div class="textbox-timer-container">
+            <WordBank />
+            <div className="textbox-timer-container">
             <TimestampTextBox /> 
             <Timer /> 
             </div>
             <Results />
-            <BarChart /> */}
-            <ScrollAnimaiton />
+            <BarChart />
+            {/* <ScrollAnimaiton /> */}
         </Context.Provider>
         </div>
 

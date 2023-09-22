@@ -12,6 +12,8 @@ const Timer = () => {
               setSeconds(seconds - 1);
             } 
             else {
+              window.scrollTo({top: 900, behavior:'smooth'})
+              // document.getElementById('results-first').scrollIntoView();
               setViewResults(true);
               setTestInProgress(false);
               clearInterval(timerInterval); 
@@ -41,7 +43,6 @@ const handleChange = (event) => {
   //change the input toggle to a drop down when you click the time
   return (
     <div>
-        {viewResults ? <div></div> : 
           <>
           <div className='timer'>
             {editTime ? 
@@ -67,7 +68,7 @@ const handleChange = (event) => {
             </div>
             
           </>
-  }
+  
     </div>
   );
 }
