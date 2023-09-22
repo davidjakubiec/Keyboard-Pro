@@ -38,7 +38,7 @@ const handleClick = () => {
 const handleChange = (event) => {
   setSeconds(event.target.value);
 };
-
+  //change the input toggle to a drop down when you click the time
   return (
     <div>
         {viewResults ? <div></div> : 
@@ -46,6 +46,7 @@ const handleChange = (event) => {
           <div className='timer'>
             {editTime ? 
             <span>
+              
               <input id="time-input" value={seconds} maxLength="3"onChange={handleChange}></input> 
               seconds 
               <button onClick={handleClick}>

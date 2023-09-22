@@ -4,6 +4,7 @@ import WordBank from './WordBank';
 import Timer from './Timer'
 import Results from './Results'
 import BarChart from './BarChart';
+import ScrollAnimaiton from './ScrollAnimaiton';
 
 export const Context = React.createContext();
 
@@ -11,7 +12,7 @@ export function App() {
 
 
     const [data, setData] = useState([]);
-    const [editTime, setEditTime] = useState(true);
+    const [editTime, setEditTime] = useState(false);
     const [colorsArray, setColorsArray] = useState([]);
     const [wordIdx, setWordIdx] = useState(0);
     const [seconds, setSeconds] = useState(60);
@@ -37,6 +38,7 @@ export function App() {
             </div>
             <Results />
             <BarChart />
+            <ScrollAnimaiton />
         </Context.Provider>
         </div>
 

@@ -27,7 +27,16 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
-            }
+            },
+            {
+                test: /\.css$/,
+                exclude: /aos\.css$/, // Exclude aos.css from the general rule
+                use: ['style-loader', 'css-loader'],
+              },
+              {
+                test: /aos\.css$/, // Apply aos.css specific loader rule
+                use: ['style-loader', 'css-loader'],
+              },
         ]
     },
     plugins: [new MiniCssExtractPlugin()]
