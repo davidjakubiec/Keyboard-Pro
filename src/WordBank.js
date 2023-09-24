@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { Context } from './App'
 
 const WordBank = () => {
-    
+    const el = useRef(null);
     const [placeholder, setPlaceholder] = useState('');
     const {wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, viewResults} = useContext(Context);
 
@@ -17,8 +17,6 @@ const WordBank = () => {
           });
       }, []);
       const words = wordBank.map((row) => row.word);
-
-
 
 
   return (

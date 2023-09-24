@@ -6,6 +6,7 @@ import * as d3 from 'd3';
 import './App.scss'
 import AOS from 'aos'
 import 'aos/dist/aos.css'; 
+import { motion, useInView, useAnimation } from "framer-motion";
 
 const Results = () => {
 
@@ -53,7 +54,7 @@ const Results = () => {
             wordResultsArray.forEach((el, idx) => {
                 if (el === wordBank[idx].word) correctWords++
             })
-            if (viewResults) AOS.init({duration: 2000});
+            // if (viewResults) AOS.init({duration: 2000});
         }
     },[testResults, viewResults, wordResultsArray])
 
@@ -89,9 +90,22 @@ const Results = () => {
     
 
   return (
-    <div className="results-first" id="results-first" data-aos="fade-right">
+    // id="results-first" data-aos="fade-right"
+    <motion.div 
+    variants={{
+        hidden: {opacity: 0, y: 75},
+        visible: {opacity: 1, y: 0}
+    }}
+    initial="hidden"
+    whileInView="visible"
+    transition={{ delay: 0.2 }}
+    // viewport={{
+    //     once: true,
+    // }}
+    className="results-first"
+    >
 
-        <><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <>
         <div>WPM: {wordIdx}</div>
         <div>keystrokes: {keystrokes}</div>
         <div>Correct Words: {correctWords}</div>
@@ -102,7 +116,7 @@ const Results = () => {
         <button onClick={handleClick}>Try Again</button>
         </> 
         
-    </div>
+    </motion.div>
   )
 }
 

@@ -74,7 +74,7 @@ const TimestampTextBox = () => {
         
   return (
     <div>
-      {viewResults ? <div></div> : 
+
       <input
         id="typed-input"
         type="text"
@@ -82,7 +82,7 @@ const TimestampTextBox = () => {
         onChange={handleChange}
         placeholder={testInProgress ? "" : "Start typing here ..."}
       />
-  }
+  
     </div>
   );
 };

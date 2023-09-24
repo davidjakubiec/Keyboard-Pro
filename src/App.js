@@ -4,7 +4,8 @@ import WordBank from './WordBank';
 import Timer from './Timer'
 import Results from './Results'
 import BarChart from './BarChart';
-import ScrollAnimaiton from './ScrollAnimaiton';
+import Training from './Training';
+
 
 export const Context = React.createContext();
 
@@ -36,9 +37,11 @@ export function App() {
             <TimestampTextBox /> 
             <Timer /> 
             </div>
+           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <Results />
+            <br/><br/><br/><br/><br/><br/><br/><br/>
             <BarChart />
-            {/* <ScrollAnimaiton /> */}
+            <Training />
         </Context.Provider>
         </div>
 

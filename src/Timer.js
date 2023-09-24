@@ -12,7 +12,7 @@ const Timer = () => {
               setSeconds(seconds - 1);
             } 
             else {
-              window.scrollTo({top: 900, behavior:'smooth'})
+              window.scrollTo({top: 1250, behavior:'smooth', duration: 0.1})
               // document.getElementById('results-first').scrollIntoView();
               setViewResults(true);
               setTestInProgress(false);

@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { Context } from './App'
 import * as d3 from 'd3';
+import { motion, useInView, useAnimation } from "framer-motion";
 
 const BarChart = () => {
   const {colorsArray, data, setData, viewResults, testResults} = useContext(Context);
@@ -13,8 +14,8 @@ const BarChart = () => {
     const svg = d3.select(svgRef.current);
 
     // Define your chart dimensions
-    const width = 500;
-    const height = 300;
+    const width = 1000;
+    const height = 500;
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
@@ -75,9 +76,17 @@ const colorScale = d3.scaleOrdinal()
 
   return (
 
-    <div>
-        <svg ref={svgRef} width={500} height={300}></svg>
-    </div>
+    <motion.div
+    variants={{
+      hidden: {opacity: 0, y: 75},
+      visible: {opacity: 1, y: 0}
+  }}
+  initial="hidden"
+  whileInView="visible"
+  transition={{ delay: 0.2 }}
+    >
+        <svg ref={svgRef} width={1000} height={500}></svg>
+    </motion.div>
   );
 };
 
