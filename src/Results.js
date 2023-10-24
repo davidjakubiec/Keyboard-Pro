@@ -164,7 +164,7 @@ const Results = () => {
             } 
             {(Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)))/40 - 1)*100}
             %
-            {Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000))) > 40 ? <> faster </> : <> slower </> }
+            {Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)), 2) > 40 ? <> faster </> : <> slower </> }
             than average
         </div>
         <button onClick={handleClick}>Try Again</button>

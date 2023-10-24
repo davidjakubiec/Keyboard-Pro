@@ -45,7 +45,6 @@ const colorScale = d3.scaleOrdinal()
 
 
     // Create wpm line
-    console.log("barchart", medianTypingSpeed)
     svg
     .append('line')
     .attr('transform', `translate(${leftTransform},0)`)
@@ -54,7 +53,7 @@ const colorScale = d3.scaleOrdinal()
     .attr('y1', yScale(medianTypingSpeed))
     .attr('x2', chartWidth)
     .attr('y2', yScale(medianTypingSpeed))
-    .attr('stroke', 'red') // You can change the color of the line
+    .attr('stroke', 'blue') // You can change the color of the line
     .attr('stroke-width', 2);
 
     // Create bars
@@ -73,16 +72,16 @@ const colorScale = d3.scaleOrdinal()
       .on('mouseover', function(d, i) {
 
         const targetElement = this;
+
         setXModal(targetElement.getBoundingClientRect().x + targetElement.getBoundingClientRect().width/2)
-        // console.log(Object.keys(testResults)[i.label.split(' ')[0]])
-        console.log(data[i.label.split(' ')[0]].value)
         setHovering(Number(i.label.split(' ')[0]))
+
         if (!document.getElementById("modal-typed-input-letter")) {
           const modalContainer = document.createElement("div")
           modalContainer.id = "modal-container";
           modalContainer.style.position = "fixed";
-          modalContainer.style.left = d.target.x.animVal.value + 2*d.target.width.animVal.value + leftTransform+ 'px'
-          modalContainer.style.top = document.getElementById("test-barchart").getBoundingClientRect().top + this.y.animVal.value - 70 +  'px'
+          modalContainer.style.left = d.target.x.animVal.value + 2*d.target.width.animVal.value + leftTransform - document.getElementById("scroll-container-x").scrollLeft + 'px'
+          modalContainer.style.top = document.getElementById("test-barchart").getBoundingClientRect().top + this.y.animVal.value - 80 +  'px'
           modalContainer.style.zIndex = Infinity
 
           const modalTypedInputLetterElement = document.createElement("div")
@@ -143,6 +142,7 @@ const colorScale = d3.scaleOrdinal()
 
       //add x axis title
       svg.append("text")
+      .style("fill", "white")
   .attr("class", "x-axis-label") // Optional: Apply a class for styling
   .attr("x", width / 2) // Position the text in the middle of the SVG
   .attr("y", height - 10) // Adjust the vertical position as needed
@@ -151,6 +151,7 @@ const colorScale = d3.scaleOrdinal()
 
         // Add y-axis title
     svg.append("text")
+    .style("fill", "white")
 .attr("class", "y-axis-label")
 .attr('transform', `translate(${leftTransform},0) rotate(-90)`)
 // .attr("transform", "rotate(-90)") // Rotate the text to be vertical
@@ -161,20 +162,30 @@ const colorScale = d3.scaleOrdinal()
 .text("Time Per Character (mSeconds)");
 
 
+
+
     // Create axes
     svg
       .append('g')
       .attr('class', 'x-axis')
-      .attr('transform', `translate(${leftTransform},${chartHeight})`)
+      .style("fill", "white")
+      .attr('transform', `translate(${leftTransform-20},${chartHeight})`)
       .call(d3.axisBottom(xScale).tickValues([]));
 
     svg
       .append('g')
       .attr('class', 'y-axis')
+      .style("fill", "white")
       .attr('transform', `translate(${leftTransform},0)`)
       .call(d3.axisLeft(yScale).ticks(5));
 
+      svg.select(".y-axis")
+      .selectAll(".tick text")
+      .style("fill", "white");
 
+      svg.select(".y-axis")
+      .selectAll(".tick line")
+      .style("stroke", "white");
 
     // Return a function to clean up the chart when the component unmounts
     return () => {
@@ -215,7 +226,9 @@ whileInView="visible"
 transition={{ delay: 0.2 }}
 className="chart-container" // Apply a class for styling and scrolling
 >
-<div className="scroll-container-x"> {/* Container for x-axis scrolling */}
+{/* <h1 id='results-header'>Letter Latency</h1> */}
+<div className="scroll-container-x" id='scroll-container-x'> {/* Container for x-axis scrolling */}
+
   <svg ref={svgRef} width={1000} height={500}></svg>
   {/* <div>
   {hovering ? 
