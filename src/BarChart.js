@@ -74,32 +74,68 @@ const colorScale = d3.scaleOrdinal()
 
         const targetElement = this;
         setXModal(targetElement.getBoundingClientRect().x + targetElement.getBoundingClientRect().width/2)
-        
+        // console.log(Object.keys(testResults)[i.label.split(' ')[0]])
+        console.log(data[i.label.split(' ')[0]].value)
         setHovering(Number(i.label.split(' ')[0]))
-        if (!document.getElementById("hello")) {
+        if (!document.getElementById("modal-typed-input-letter")) {
           const modalContainer = document.createElement("div")
           modalContainer.id = "modal-container";
-          const newElement = document.createElement("div")
-          newElement.id = 'hello'
-          newElement.style.position = "fixed";
-          newElement.textContent = testResults[Object.keys(testResults)[i.label.split(' ')[0]]].expectedLetter + `\n hi`;          newElement.style.left = d.target.x.animVal.value + 2*d.target.width.animVal.value + leftTransform+ 'px'
-          newElement.style.top = document.getElementById("test-barchart").getBoundingClientRect().top + this.y.animVal.value +  'px'
-          newElement.style.zIndex = Infinity
-          document.querySelector(".scroll-container-x").appendChild(newElement)
+          modalContainer.style.position = "fixed";
+          modalContainer.style.left = d.target.x.animVal.value + 2*d.target.width.animVal.value + leftTransform+ 'px'
+          modalContainer.style.top = document.getElementById("test-barchart").getBoundingClientRect().top + this.y.animVal.value - 70 +  'px'
+          modalContainer.style.zIndex = Infinity
+
+          const modalTypedInputLetterElement = document.createElement("div")
+          modalTypedInputLetterElement.id = 'modal-typed-input-letter'
+          modalTypedInputLetterElement.textContent = "input: " + testResults[Object.keys(testResults)[i.label.split(' ')[0]]].typedInputLetter;          
+ 
+          const modalExpectedLetterElement = document.createElement("div")
+          modalExpectedLetterElement.id = 'modal-expected-letter'
+          modalExpectedLetterElement.textContent = "expected: " + testResults[Object.keys(testResults)[i.label.split(' ')[0]]].expectedLetter;          
+         
+          const modalWordElement = document.createElement("div")
+          modalWordElement.id = 'modal-word'
+          modalWordElement.textContent = "word: " + testResults[Object.keys(testResults)[i.label.split(' ')[0]]].word;          
+          
+          const modalTimeElement = document.createElement("div")
+          modalTimeElement.id = 'modal-time'
+          modalTimeElement.textContent = "time: " + data[i.label.split(' ')[0]].value + " mS";          
+          
+          modalContainer.appendChild(modalTypedInputLetterElement)
+          modalContainer.appendChild(modalExpectedLetterElement)
+          modalContainer.appendChild(modalWordElement)
+          modalContainer.appendChild(modalTimeElement)
+
+          document.querySelector(".scroll-container-x").appendChild(modalContainer)
+
         }
+
+        // updatedTestResults[`${new Date().toISOString()}`] = {
+        //   "word": wordBank[wordIdx].word,
+        //   "typedInputLetter": event.key,
+        //   "expectedLetter": currLetter,
+        //   "correct": event.key === currLetter,
+        //   "color": color
+        // };
 
         // Add your logic to display the corresponding value, such as updating a tooltip
         // Example: d3.select('#tooltip').text(`Corresponding Value: ${correspondingValue}`).style('visibility', 'visible');
       })
       .on('mouseout', function() {
         // Hide corresponding value when mouse leaves the bar
-        console.log('Mouse Out of Bar');
+        // console.log('Mouse Out of Bar');
         setHovering(null)
-        console.log("test4", document.getElementById("hello"))
-        const remove = document.getElementById("hello")
-        if (remove) remove.remove();
-        document.getElementById("modal-container").remove();
 
+        const removeInput = document.getElementById("modal-typed-input-letter")
+        if (removeInput) removeInput.remove();
+        const removeContainer = document.getElementById("modal-container");
+        if (removeContainer) removeContainer.remove();
+        const removeExpected = document.getElementById("modal-expected-letter")
+        if (removeExpected) removeExpected.remove();
+        const removeWord = document.getElementById("modal-word")
+        if (removeWord) removeWord.remove();
+        const removeTime = document.getElementById("modal-time")
+        if (removeTime) removeTime.remove();
         
         // Add your logic to hide the corresponding value, such as hiding the tooltip
         // Example: d3.select('#tooltip').style('visibility', 'hidden');
