@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TimestampTextBox from './TimestampTextBox';
 import WordBank from './WordBank';
 import Timer from './Timer'
 import Results from './Results'
 import BarChart from './BarChart';
 import Training from './Training';
+import HeatMap from './HeatMap';
+import LineChart from './LineChart';
+
+
 
 
 export const Context = React.createContext();
 
 export function App() {
-
 
     const [data, setData] = useState([]);
     const [editTime, setEditTime] = useState(false);
@@ -24,26 +27,52 @@ export function App() {
     const [testResults, setTestResults] = useState({});
     const [testInProgress, setTestInProgress] = useState(false);
     const [viewResults, setViewResults] = useState(false);
+    const [heatMapData, setHeatMapData] = useState({});
+    const [lineChartYData, setLineChartYData] = useState([]);
+    const [lineChartXData, setLineChartXData] = useState([]);
+    const [wpm, setWpm] = useState(0);
+    const [displayCorrectKeystrokes, setDisplayCorrectKeystrokes] = useState(0);
+    const [testDuration, setTestDuration] = useState(0);
+    const [medianTypingSpeed, setMedianTypingSpeed] = useState(0);
+    const [hovering, setHovering] = useState(null);
+    const [xModal, setXModal] = useState(0);
+    const [yModal, setYModal] = useState(0);
 
     const contextObject = { editTime, setEditTime, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
         wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, 
-        setWordResultsArray, seconds, setSeconds}
+        xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData}
+
 
     return (
         <div className="flex-container">
-        <Context.Provider value={ contextObject }>
-            <WordBank />
-            <div className="textbox-timer-container">
-            <TimestampTextBox /> 
-            <Timer /> 
+        <Context.Provider value={ contextObject } >
+        <div>
+            {!viewResults ? 
+            <section className='test'>
+                <WordBank />
+                <div className="textbox-timer-container">
+                    <TimestampTextBox /> 
+                    <Timer /> 
+                </div>
+            </section>
+            :
+            <div>   
+            <section className='test-results'>
+                <Results />
+            </section>
+            <section className='test-barchart' id='test-barchart'>
+                <BarChart />
+            </section>
+            <section className='test-heatmap'>
+                <HeatMap />
+            </section>
+            <section className='test-linechart'>
+                <LineChart />
+            </section>
             </div>
-           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <Results />
-            <br/><br/><br/><br/><br/><br/><br/><br/>
-            <BarChart />
-            <Training />
+            }
+        </div>
         </Context.Provider>
         </div>
-
     );
 };

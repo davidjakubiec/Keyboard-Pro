@@ -3,7 +3,7 @@ import { Context } from './App'
 
 const TimestampTextBox = () => {
 
-  const {text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, wordResultsArray, setWordResultsArray, viewResults} = useContext(Context);
+  const {setEditTime, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, wordResultsArray, setWordResultsArray, viewResults} = useContext(Context);
 
   useEffect(() => {
     const handleKeyDown = (event) => { 
@@ -51,13 +51,14 @@ const TimestampTextBox = () => {
     document.getElementById('typed-input').addEventListener('keydown', handleKeyDown);
     // Remove the event listener when the component unmounts
     return () => {
-      document.getElementById('typed-input').removeEventListener('keydown', handleKeyDown);
+      if (document.getElementById('typed-input')) document.getElementById('typed-input').removeEventListener('keydown', handleKeyDown);
         };
     }, [wordBank, wordIdx, letterIdx, text]); // Empty dependency array ensures this effect runs once
 
 
     const handleChange = (event) => { 
       setTestInProgress(true);
+      setEditTime(false);
       // console.log(testInProgress)
       if (event.target.value != ' ') {
         //get the last typed letter
@@ -80,6 +81,7 @@ const TimestampTextBox = () => {
         type="text"
         value={text}
         onChange={handleChange}
+        autoComplete='off'
         placeholder={testInProgress ? "" : "Start typing here ..."}
       />
   
