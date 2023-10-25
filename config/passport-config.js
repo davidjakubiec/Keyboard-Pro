@@ -11,20 +11,28 @@ passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/redirect'
   },
   (accessToken, refreshToken, profile, done) => {
-    console.log('passport callback function fired', new Date())
-    // console.log(profile)
-    new User({
-      user: profile.displayName,
-      googleId: profile.id
-    }).save()
-    .then((newUser) => {
-      console.log('new user created: ' + newUser)
+    //check if user already exists in db
+    User.findOne({googleId: profile.id}).then((currentUser) => {
+      if (currentUser) {
+        //already have the user
+        console.log('user is: ' + currentUser);
+      } else {
+        //create a new user in our db
+        new User({
+          user: profile.displayName,
+          googleId: profile.id
+        }).save()
+        .then((newUser) => {
+          console.log('new user created: ' + newUser)
+        })
+        .catch((error) => {
+          console.error('Error saving user: ', error)
+        })
+      }
     })
     .catch((error) => {
-      console.error('Error saving user: ', error)
+      console.log('Error finding User in DB: ', error)
     })
-
-    // Check if the user exists in your database, create one if not.
     // Call done() to complete the authentication process.
   }
 ));
