@@ -10,7 +10,7 @@ import { motion, useInView, useAnimation } from "framer-motion";
 
 const Results = () => {
 
-    const { medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData, heatMapData, setHeatMapData, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
+    const { slowestCombination, setSlowestCombination, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData, heatMapData, setHeatMapData, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
 
     const [displayIncorrectKeystrokes, setDisplayIncorrectKeystrokes] = useState(0);
@@ -24,9 +24,11 @@ const Results = () => {
     let grosswpmArray = [];
     let tempXaxis = [];
     let typingSpeedArray = [];
+    let slowestCombinationArray = [];
 
     let slowestWord = "";
     let slowestWordTime = -Infinity;
+    let slowestWordIdx;
 
     // useEffect(() => {
     //     AOS.init({duration: 2000});
@@ -82,6 +84,21 @@ const Results = () => {
             for (let i = 1; i < timeStampsArray.length; i++) {
                 typingSpeedArray.push(new Date(timeStampsArray[i]) - new Date(timeStampsArray[i-1]));
             }
+            //before sorting typing speed array, find slowest combination
+            for (let i = 2; i < typingSpeedArray.length; i++) {
+                //check to make sure they are correct
+                const correct = ( testResultsArray[i].correct && testResultsArray[i-1].correct && testResultsArray[i-2].correct )
+                const currTime = typingSpeedArray[i]+typingSpeedArray[i-1]+typingSpeedArray[i-2]
+                if (currTime > slowestWordTime && correct && testResultsArray[i]) {
+                    slowestWordTime = currTime;
+                    slowestWordIdx = i-2;
+                    console.log('hi')
+                }
+                console.log("loop: ", currTime, slowestWordIdx)
+            }
+            console.log("test1: ", slowestWordIdx)
+
+
             typingSpeedArray.sort((a,b) => a - b);
             if (typingSpeedArray % 2 === 0) {
                 setMedianTypingSpeed((typingSpeedArray[Math.floor(typingSpeedArray.length/2)]+typingSpeedArray[Math.floor(typingSpeedArray.length/2)+1])/2)

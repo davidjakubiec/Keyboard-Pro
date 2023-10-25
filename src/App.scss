@@ -75,8 +75,6 @@ body {
     margin-bottom: 5%;
 }
 
-
-
 .wordbank-container::-webkit-scrollbar {
     width: 0.8em; 
 }
@@ -117,7 +115,7 @@ body {
 }
 
 .test-linechart {
-    height: 100vh;
+    height: 50vh;
     background-color: purple;
 }
 
@@ -133,11 +131,19 @@ body {
   
   
 .scroll-container-x {
-    overflow-x: auto; /* Enable horizontal scrolling for the inner container */
+    overflow-x: scroll; /* Enable horizontal scrolling for the inner container */
     overflow-y: hidden; /* Disable vertical scrolling for the inner container */
     white-space: nowrap; /* Prevent line breaks */
     z-Index: 1;
   }
+
+.scroll-container-x::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+  
+.scroll-container-x::-webkit-scrollbar-thumb {
+    background-color: green; 
+}
 
 #modal-container {
     position: absolute;

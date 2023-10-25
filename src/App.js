@@ -7,7 +7,7 @@ import BarChart from './BarChart';
 import Training from './Training';
 import HeatMap from './HeatMap';
 import LineChart from './LineChart';
-
+import OAuthButton from './OauthButton';
 
 
 
@@ -37,10 +37,11 @@ export function App() {
     const [hovering, setHovering] = useState(null);
     const [xModal, setXModal] = useState(0);
     const [yModal, setYModal] = useState(0);
+    const [slowestCombination, setSlowestCombination] = useState([]);
 
     const contextObject = { editTime, setEditTime, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
         wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, 
-        xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData}
+        slowestCombination, setSlowestCombination, xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData}
 
 
     return (
@@ -48,7 +49,9 @@ export function App() {
         <Context.Provider value={ contextObject } >
         <div>
             {!viewResults ? 
+
             <section className='test'>
+                <OAuthButton/>
                 <WordBank />
                 <div className="textbox-timer-container">
                     <TimestampTextBox /> 
@@ -63,12 +66,12 @@ export function App() {
             <section className='test-barchart' id='test-barchart'>
                 <BarChart />
             </section>
-            <section className='test-heatmap'>
+            {/* <section className='test-heatmap'>
                 <HeatMap />
-            </section>
-            <section className='test-linechart'>
+            </section> */}
+            {/* <section className='test-linechart'>
                 <LineChart />
-            </section>
+            </section> */}
             </div>
             }
         </div>

@@ -1,10 +1,9 @@
 const { Pool } = require('pg');
-
-const PG_URI = 'postgres://vmsjoeqc:dmT_b24FWCj-qhrlJHBNMALET1-7oANE@rajje.db.elephantsql.com/vmsjoeqc'
+const keys = require('./../../config/keys');
 
 //connectionString to our postgresURL
 const pool = new Pool({
-  connectionString: PG_URI
+  connectionString: keys.postgres.pgURI
 });
 
 //Export object with query method
