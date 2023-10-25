@@ -1,12 +1,10 @@
-const db = require('../models/model');
-
 const authController = {};
 
-authController.isAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
+authController.authCheck = (req, res, next) => {
+    if (req.user) {
       return next();
     }
-    res.status(401).json({ error: 'Unauthorized' });
+    res.redirect('/auth/login')
   };
 
 module.exports = authController;

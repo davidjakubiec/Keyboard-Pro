@@ -10,7 +10,18 @@ const OAuthButton = () => {
     window.location.href = 'http://localhost:3000/auth/google'; // Assuming '/auth/google' is your OAuth route
   };
 
-  return <button onClick={handleLoginClick}>Login with Google</button>;
+  const handleLogoutClick = () => {
+    // Redirect the user to the OAuth provider's authentication endpoint
+    window.location.href = 'http://localhost:3000/auth/logout'; // Assuming '/auth/google' is your OAuth route
+  };
+
+  return (
+    <div>
+      <button onClick={handleLoginClick}>Login with Google</button>
+      <button onClick={handleLogoutClick}>Log out</button>
+    </div>
+    
+  );
 };
 
 export default OAuthButton;

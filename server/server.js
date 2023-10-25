@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const cors = require('cors')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
 
 const app = express();
 const PORT = 3000;
@@ -26,14 +28,25 @@ app.use(express.json());
 //best practice to use this
 app.use(express.urlencoded({extended: true}))
 
+
+app.use(cookieSession({
+  maxAge: 24*60*60*1000,
+  keys: [keys.session.cookieKey]
+}));
+
 // Initialize Passport and the Express session
-// const passport = require('passport')
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 const authRoutes = require('./routes/authRoutes');
 // Use the OAuth routes
 app.use('/auth', authRoutes);
+
+const profileRoutes = require('./routes/profileRoutes');
+// Use the profile routes
+app.use('/profile', profileRoutes);
 
 //require routers
 const exampleRouter = require('./routes/exampleRoute');

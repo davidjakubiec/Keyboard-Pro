@@ -9,7 +9,9 @@ router.get('/login', (req,res) => {
 })
 
 router.get('/logout', (req,res) => {
-    res.send('logging out')
+    req.logout();
+    //redirect to the dev server instead of node server
+    res.redirect('/')
 })
 
 router.get('/google',
@@ -26,7 +28,7 @@ router.get('/google',
 
 //callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    res.send('you reached the callback uri')
+    res.redirect('/profile/')
 })
 
 module.exports = router;
