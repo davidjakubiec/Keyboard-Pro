@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
 import TimestampTextBox from './TimestampTextBox';
 import WordBank from './WordBank';
 import Timer from './Timer'
@@ -11,7 +11,7 @@ import LineChart from './LineChart';
 import OAuthButton from './OauthButton';
 //pages
 import TimeTest from './pages/TimeTest'
-import About from './pages/About';
+import Profile from './pages/Profile';
 
 
 
@@ -53,10 +53,16 @@ export function App() {
         <div className="flex-container">
         <Context.Provider value={ contextObject } >
         <BrowserRouter>
+            <header>
+                <nav>
+                <NavLink to='/'>Time Test</NavLink>
+                <NavLink to='/profile'>Profile</NavLink>
+                </nav>
+            </header>
             <main>
                 <Routes>
                     <Route path='/' element={<TimeTest/>}/>
-                    <Route path='/about' element={<About/>}/>
+                    <Route path='/profile' element={<Profile/>}/>
                 </Routes>
             </main>
         </BrowserRouter>
