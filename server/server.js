@@ -21,12 +21,18 @@ app.get('/', (req, res) => {
   });
 
 
+
 app.use(cors());
 
 //handle parsing request body
 app.use(express.json());
 //best practice to use this
 app.use(express.urlencoded({extended: true}))
+
+
+
+
+
 
 
 app.use(cookieSession({
@@ -52,6 +58,14 @@ app.use('/profile', profileRoutes);
 const exampleRouter = require('./routes/exampleRoute');
 //define route handlers
 app.use('/api/example', exampleRouter);
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "dist/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 //catch-all error handler for undefined routes
 app.use('*', (req, res) => res.sendStatus(404));
