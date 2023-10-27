@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 
-
+// app.use('*', express.static('js'))
 
 
 
@@ -44,7 +44,10 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.get('/api/user', (req, res) => {
+  const user = req.session.user;
+  res.status(200).json(user);
+});
 
 const authRoutes = require('./routes/authRoutes');
 // Use the OAuth routes
@@ -59,13 +62,18 @@ const exampleRouter = require('./routes/exampleRoute');
 //define route handlers
 app.use('/api/example', exampleRouter);
 
-app.get("/*", function (req, res) {
+app.get("/:path*", function (req, res) {
+  
   res.sendFile(path.join(__dirname, "dist/index.html"), function (err) {
     if (err) {
       res.status(500).send(err);
     }
   });
 });
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'dist/index.html'));
+// });
 
 //catch-all error handler for undefined routes
 app.use('*', (req, res) => res.sendStatus(404));

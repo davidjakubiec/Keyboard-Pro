@@ -2,12 +2,13 @@
     display: flex;
     flex-direction: column;
     margin: 0 5%;
-    margin-top: 15%;
+    margin-top: 10%;
     margin-bottom: 10%
 }
 
 .textbox-timer-container {
     display: flex;
+    height: 100px;
 }
 
 .animation {
@@ -20,9 +21,9 @@
 .timer {
     color:white;
     font-family: 'Inter', sans-serif;
-    font-size: 48px;
+    font-size: 90px;
     margin-left: 5%;
-    width: 400px;
+    width: 1000px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -33,24 +34,26 @@
 
 
 #time-input {
-    width: 40px;
-    font-size: 24px;
-    margin-right: 5%
+    width: 110px;
+    padding-left: none;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
 }
 
 input {
-    width: 300px;
-    height: 50px;
+    width: 600px;
+    height: 100px;
     line-height: 20px;
     background-color: #D9D9D9;
     border-radius: 10px;
     padding-left: 20px;
+    font-size: 90px;
 }
 
 input::placeholder {
     color: #999;
-    font-size: 24px;
-
+    font-size: 70px;
+    transform: translateY(-5px);
 }
 
 body {
@@ -143,6 +146,7 @@ body {
   
 .scroll-container-x::-webkit-scrollbar-thumb {
     background-color: green; 
+
 }
 
 #modal-container {
@@ -160,3 +164,130 @@ body {
     justify-content: center;
   }
 
+.nav-bar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    // position: absolute; 
+    top: 20px;
+    right: 200px;
+    color: white;
+    font-size: 48px;
+}
+
+.nav-bar-link {
+    margin: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-bar-link:hover {
+    text-decoration: underline;
+}
+
+.google-button {
+    // background-image: url('../assets/OAuthButtons/Google/Web\ \(mobile\ +\ desktop\)/svg/neutral/web_neutral_sq_SU.svg');
+    // display: flex;
+    // // height: 50%;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    // border-radius: 10px;
+    width: 185px;
+    height: 44px;
+}
+
+.google-button:hover {
+    cursor: pointer;
+}
+
+.profile-container {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: white;
+    height: 60vh;
+}
+
+.twoxtwo-container {
+    background-color: green;
+    width: 66vh;
+    height: 40vh;
+}
+
+.account-info-container {
+    background-color: pink;
+    height: 20vh;
+}
+
+.user-history-container {
+    background-color: blue;
+}
+
+.user-info-container {
+    position: relative;
+    background-color: lightgrey;
+    height: 30vh;
+    width: 30vh;
+    border-radius: 10px;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.user-info-container::before,
+.user-info-container::after {
+  content: "";
+  position: absolute;
+  background-color: darkgrey; /* Set the color of the lines */
+}
+
+.user-info-container::before {
+  top: 50%; /* Position the vertical line at 50% of the user-info.user-info-container's height */
+  left: 0;
+  right: 0;
+  height: 2px; /* Set the height of the vertical line */
+}
+
+.user-info-container::after {
+  left: 50%; /* Position the horizontal line at 50% of the container's width */
+  top: 0;
+  bottom: 0;
+  width: 2px; /* Set the width of the horizontal line */
+}
+
+.user-info-subcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // 1/2 parent container width;
+    width: 15vh;
+}
+
+.user-info-subcontainer-large-font {
+    font-size: 30px;
+}
+
+.user-info-subcontainer-small-font {
+    font-size: 15px;
+}
+
+.user-test-history-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: purple;
+    width: 50vw;
+    height: 25vh;
+}
+
+#profile-pic {
+    width: 50%;
+    height: 50%;
+    border-radius: 10px;
+}
+
+.twoxtwo-subcontainer {
+    display:flex;
+    justify-content: space-evenly;
+}

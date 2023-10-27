@@ -5,12 +5,13 @@ const authController = require('../controllers/authController')
 
 
 router.get('/login', (req,res) => {
+    // console.log('hi')
     res.render('login');
 })
 
 router.get('/logout', (req,res) => {
     req.logout();
-    //redirect to the dev server instead of node server
+    //redirect to the dev server instead of node
     res.redirect('/')
 })
 

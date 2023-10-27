@@ -25,15 +25,17 @@ passport.use(new GoogleStrategy({
   },
   (accessToken, refreshToken, profile, done) => {
     //check if user already exists in db
+    // console.log("profile", profile.displayName)
     User.findOne({googleId: profile.id}).then((currentUser) => {
       if (currentUser) {
         //already have the user
-        console.log('user is: ' + currentUser);
+        // console.log('user is: ' + currentUser);
         done(null, currentUser);
       } else {
         //create a new user in our db
+
         new User({
-          user: profile.displayName,
+          username: profile.displayName,
           googleId: profile.id
         }).save()
         .then((newUser) => {
@@ -48,7 +50,6 @@ passport.use(new GoogleStrategy({
     .catch((error) => {
       console.log('Error finding User in DB: ', error)
     })
-    // Call done() to complete the authentication process.
   }
 ));
 

@@ -24,7 +24,7 @@ const TimeTest = () => {
 
         {!viewResults ? 
             <section className='test'>
-                <OAuthButton/>
+                {/* <OAuthButton/> */}
                 <WordBank />
                 <div className="textbox-timer-container">
                     <TimestampTextBox /> 

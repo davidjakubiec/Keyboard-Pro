@@ -82,7 +82,7 @@ const TimestampTextBox = () => {
         value={text}
         onChange={handleChange}
         autoComplete='off'
-        placeholder={testInProgress ? "" : "Start typing here ..."}
+        placeholder={testInProgress ? "" : "Start typing here..."}
       />
   
     </div>

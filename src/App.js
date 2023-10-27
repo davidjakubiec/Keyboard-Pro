@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
-import TimestampTextBox from './TimestampTextBox';
-import WordBank from './WordBank';
-import Timer from './Timer'
-import Results from './Results'
-import BarChart from './BarChart';
-import Training from './Training';
-import HeatMap from './HeatMap';
-import LineChart from './LineChart';
-import OAuthButton from './OauthButton';
+import React, { createRef, useEffect, useState } from 'react';
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+
 //pages
 import TimeTest from './pages/TimeTest'
 import Profile from './pages/Profile';
+import Faq from './pages/help/Faq';
+import Contact from './pages/help/Contact';
+import NotFound from './pages/NotFound';
+import Careers, { careersLoader } from './pages/Careers/Careers';
+import CareerDetails, { careerDetailsLoader } from './pages/Careers/CareerDetails';
+import CareersError from './pages/Careers/CareersError';
+
+//layouts
+import RootLayout from './layouts/RootLayout';
+import HelpLayout from './layouts/HelpLayout';
+import CareersLayout from './layouts/CareersLayout';
+
 
 
 
@@ -42,31 +46,50 @@ export function App() {
     const [xModal, setXModal] = useState(0);
     const [yModal, setYModal] = useState(0);
     const [slowestCombination, setSlowestCombination] = useState([]);
+    const [user, setUser] = useState({})
 
     const contextObject = { editTime, setEditTime, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
         wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, 
-        slowestCombination, setSlowestCombination, xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData
+        user, setUser, slowestCombination, setSlowestCombination, xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData
     }
 
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path='/' element={<RootLayout/>}>
+                <Route index element={<TimeTest/>}/>
+                <Route path='profile' element={<Profile/>}/>
+
+                <Route path='help' element={<HelpLayout/>}>
+                    <Route path='faq' element={<Faq/>} />
+                    <Route path='contact' element={<Contact/>}/>
+                </Route>
+
+                <Route path='careers' element={<CareersLayout />} errorElement={<CareersError />}>
+                    <Route 
+                        index
+                        element={<Careers/>}
+                        loader={careersLoader}
+                    />
+                    <Route 
+                        path=":id"
+                        element={<CareerDetails />}
+                        loader={careerDetailsLoader}       
+                    />
+
+                </Route>
+
+
+                
+                <Route path='*' element={<NotFound/>}/>
+            </Route>
+        )
+        )
 
     return (
         <div className="flex-container">
-        <Context.Provider value={ contextObject } >
-        <BrowserRouter>
-            <header>
-                <nav>
-                <NavLink to='/'>Time Test</NavLink>
-                <NavLink to='/profile'>Profile</NavLink>
-                </nav>
-            </header>
-            <main>
-                <Routes>
-                    <Route path='/' element={<TimeTest/>}/>
-                    <Route path='/profile' element={<Profile/>}/>
-                </Routes>
-            </main>
-        </BrowserRouter>
-        </Context.Provider>
+            <Context.Provider value={ contextObject } >
+                <RouterProvider router={router} />
+            </Context.Provider>
         </div>
     );
 };
