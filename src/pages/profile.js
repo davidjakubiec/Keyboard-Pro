@@ -23,7 +23,7 @@ export default function Profile() {
         <div className="profile-container">
             <div className='twoxtwo-container'>
                 <h1>
-                     David Jakubiec {user ? JSON.stringify(user) : <div>not logged in</div>}
+                    {user ? user.username : <div>not logged in</div>}
                 </h1>
                     <div width='10vh' className="twoxtwo-subcontainer">
                         <div>

@@ -136,20 +136,20 @@ const Results = () => {
 
 
 console.log("user info ", user)
-            // // update the test results cluster
-            // fetch('http://localhost:3000/api/testCompleted', {
-            //     method: 'PUT',
-            //     headers: {
-            //       'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         "id": user._id,
-            //         "date": new Date(),
-            //         "wpm": wordsPerMinute,
-            //         "accuracy": accuracy,
-            //         "duration": duration
-            //     }),
-            //   })
+            // update the test results cluster
+            fetch('http://localhost:3000/api/testCompleted', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "id": user._id,
+                    "date": new Date(),
+                    "wpm": wordsPerMinute,
+                    "accuracy": accuracy,
+                    "duration": duration
+                }),
+              })
         }
     },[testResults, viewResults, wordResultsArray])
 

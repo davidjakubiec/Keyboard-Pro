@@ -70,7 +70,10 @@ app.get('/api/user', (req, res) => {
   res.status(200).json(user);
 });
 
-
+app.get('/results', (req,res) => {
+  // console.log('results api', req.user._id.toString())
+  timedTestResult.find({ id: req.user._id.toString()}).then((data) => res.json(data))
+})
 
 const authRoutes = require('./routes/authRoutes');
 // Use the OAuth routes

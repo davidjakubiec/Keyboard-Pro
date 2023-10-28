@@ -1,24 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import { Context } from '../App'
 
 const UserTestHistory = () => {
-    const sampleData = [{
-        "test-number": 1,
-        "date": "01/01/02",
-        "wpm": 100,
-        "accuracy": 95,
-        "duration": 60,
-        "text-sample": "political trophy has ..."
-    },
-    {
-        "test-number": 2,
-        "date": "01/02/02",
-        "wpm": 200,
-        "accuracy": 195,
-        "duration": 60,
-        "text-sample": "wandering monster with ..."
-    }
-];
+    const {userHistory, setUserHistory} = useContext(Context);
 
+  useEffect(() => {
+    fetch('http://localhost:3000/results', {
+      method: 'GET',
+      credentials: 'include', 
+    })
+    .then(results => results.json())
+    .then(data => setUserHistory(data))
+  }, [])
 
   return (
     <div className='user-test-history-container'>
@@ -34,16 +27,16 @@ const UserTestHistory = () => {
       <th>Duration</th>
       {/* <th>Text Sample</th> */}
     </tr>
-    {sampleData.map((el, index) => (
+    {userHistory ? userHistory.map((el, index) => (
         <tr>
-            <td>{el['test-number']}</td>
+            <td>{index+1}</td>
             <td>{el.date}</td>
             <td>{el.wpm}</td>
             <td>{el.accuracy}</td>
             <td>{el.duration}</td>
             {/* <td>{el['text-sample']}</td> */}
         </tr>
-    ))}
+    )):<div></div>}
   </table>
 
 

@@ -1,16 +1,30 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
+import { Context } from '../App'
 import * as d3 from 'd3';
 
 const UserTestHistoryAccuracyLineGraph = () => {
+  const {userHistory, setUserHistory} = useContext(Context);
   const svgRef = useRef(null);
 
   useEffect(() => {
     // Function to create the chart
     const createChart = () => {
-      const data = Array.from({ length: 10 }, (_, i) => ({
-        testNumber: i + 1,
-        wordsPerMinute: Math.floor(Math.random() * 75) + 25, // Random value between 25 and 225
-      }));
+
+      // const data = Array.from({ length: 10 }, (_, i) => ({
+      //   testNumber: i + 1,
+      //   accuracy: Math.floor(Math.random() * 75) + 25, // Random value between 25 and 225
+      // }));
+
+      const data = [];
+      if (userHistory) {
+        for (let i = 0; i < userHistory.length; i++) {
+          data.push({
+            testNumber: i+1,
+            accuracy: userHistory[i].accuracy
+          })
+        }
+      }
+
 
       const margin = { top: 20, right: 30, bottom: 40, left: 40 };
       const width = window.innerWidth * 0.4 - margin.left - margin.right;
@@ -56,7 +70,7 @@ const UserTestHistoryAccuracyLineGraph = () => {
       const line = d3
         .line()
         .x(d => xScale(d.testNumber.toString()) + xScale.bandwidth() / 2)
-        .y(d => yScale(d.wordsPerMinute));
+        .y(d => yScale(d.accuracy));
 
       svg.selectAll('.line').remove(); // Remove existing line to prevent duplication on resize
 
@@ -104,7 +118,7 @@ const UserTestHistoryAccuracyLineGraph = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+  }, [userHistory]); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
 
   return <svg ref={svgRef}></svg>;
 };
