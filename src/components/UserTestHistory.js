@@ -22,7 +22,7 @@ const UserTestHistory = () => {
   return (
     <div className='user-test-history-container'>
 
-<h2>Sample Table</h2>
+<h2>Your Test History</h2>
 
   <table border="1"> 
     <tr> 
@@ -31,7 +31,7 @@ const UserTestHistory = () => {
       <th>Words Per Minute</th> 
       <th>Accuracy</th>
       <th>Duration</th>
-      <th>Text Sample</th>
+      {/* <th>Text Sample</th> */}
     </tr>
     {sampleData.map((el, index) => (
         <tr>
@@ -40,7 +40,7 @@ const UserTestHistory = () => {
             <td>{el.wpm}</td>
             <td>{el.accuracy}</td>
             <td>{el.duration}</td>
-            <td>{el['text-sample']}</td>
+            {/* <td>{el['text-sample']}</td> */}
         </tr>
     ))}
   </table>

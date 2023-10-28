@@ -22,7 +22,12 @@ app.get('/', (req, res) => {
 
 
 
-app.use(cors());
+app.use(cors(
+  {
+    origin: 'http://localhost:3010', // Allow requests from this origin
+    credentials: true, // Allow credentials (cookies, authorization headers)
+  }
+));
 
 //handle parsing request body
 app.use(express.json());

@@ -11,7 +11,6 @@ const BarChart = () => {
   useEffect(() => {
     if (!data || data.length === 0) return;
     const svg = d3.select(svgRef.current);
-  
     // Define your chart dimensions
     const width = 1000;
     const height = 500;
