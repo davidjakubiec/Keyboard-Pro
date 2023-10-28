@@ -4,17 +4,12 @@ import { Context } from '../App'
 
 
 const GoogleButton = () => {
-    const { user, setUser } = useContext(Context);
-    console.log("user variable", user)
-    useEffect(() => {
-        fetch('http://localhost:3000/api/user', {
-            method: 'GET',
-            credentials: 'include', 
-          })
-        .then((response) => response.json())
-        .then((data) => setUser(data))
 
-    },[])
+
+    const handleLogoutClick = () => {
+      // Redirect the user to the OAuth provider's authentication endpoint
+      window.location.href = 'http://localhost:3000/auth/logout'; // Assuming '/auth/google' is your OAuth route
+    };
 
     const handleLoginClick = () => {
         // Redirect the user to the OAuth provider's authentication endpoint
@@ -22,10 +17,11 @@ const GoogleButton = () => {
       };
 
   return (
-    <div> {user ? user.username : <div></div>}
+    <div> 
     <button onClick={handleLoginClick} className='google-button'>
         <img src={icon} alt="SVG Icon" width='200px'/>
     </button>
+    <button onClick={handleLogoutClick}>Log out</button>
     </div>
   )
 }

@@ -1,19 +1,31 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import UserRatings from "../components/UserRatings"
 import UserTestHistory from "../components/UserTestHistory"
 import UserTestHistoryWPMLineGraph from "../components/UserTestHistoryWPMLineGraph"
 import UserTestHistoryAccuracyLineGraph from "../components/UserTestHistoryAccuracyLineGraph"
+import { Context } from '../App'
 
 export default function Profile() {
+    const { user, setUser } = useContext(Context);
+
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/user', {
+            method: 'GET',
+            credentials: 'include', 
+          })
+        .then((response) => response.json())
+        .then((data) => setUser(data))
+    },[])
+
 
     return (
         <div className="profile-container">
             <div className='twoxtwo-container'>
                 <h1>
-                     David Jakubiec
+                     David Jakubiec {user ? JSON.stringify(user) : <div>not logged in</div>}
                 </h1>
                     <div width='10vh' className="twoxtwo-subcontainer">
-                        {/* <img id="profile-pic" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"/> */}
                         <div>
                             <UserRatings />
                         </div>
@@ -21,7 +33,7 @@ export default function Profile() {
             </div>
             <div className="account-info-container">
                 <h1>Account Info</h1>
-                <div>email:</div>
+                <div>email: </div>
                 <div>authentication service: Google</div>
                 <button>Delete Account</button>
             </div>

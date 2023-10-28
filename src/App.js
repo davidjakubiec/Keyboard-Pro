@@ -40,7 +40,7 @@ export function App() {
     const [lineChartXData, setLineChartXData] = useState([]);
     const [wpm, setWpm] = useState(0);
     const [displayCorrectKeystrokes, setDisplayCorrectKeystrokes] = useState(0);
-    const [testDuration, setTestDuration] = useState(0);
+    const [testDuration, setTestDuration] = useState(60);
     const [medianTypingSpeed, setMedianTypingSpeed] = useState(0);
     const [hovering, setHovering] = useState(null);
     const [xModal, setXModal] = useState(0);

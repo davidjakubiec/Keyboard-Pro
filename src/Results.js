@@ -10,10 +10,12 @@ import { motion, useInView, useAnimation } from "framer-motion";
 
 const Results = () => {
 
-    const { slowestCombination, setSlowestCombination, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData, heatMapData, setHeatMapData, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
+    const { user, slowestCombination, setSlowestCombination, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData, heatMapData, setHeatMapData, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
 
     const [displayIncorrectKeystrokes, setDisplayIncorrectKeystrokes] = useState(0);
+    const [correctWpm, setCorrectWpm] = useState(0);
+    const [accuracy, setAccuracy] = useState(0);
 
     let correctKeystrokes = 0;
     let incorrectKeystrokes = 0;
@@ -29,6 +31,9 @@ const Results = () => {
     let slowestWord = "";
     let slowestWordTime = -Infinity;
     let slowestWordIdx;
+
+    let wordsPerMinute;
+    let correctWordsPerMinute;
 
     // useEffect(() => {
     //     AOS.init({duration: 2000});
@@ -106,13 +111,21 @@ const Results = () => {
                 setMedianTypingSpeed(typingSpeedArray[Math.floor(typingSpeedArray.length/2)])
             }
 
+            let duration = Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)
+            wordsPerMinute = Math.round(correctKeystrokes/5*60/duration)
+            correctWordsPerMinute = Math.round((correctKeystrokes-incorrectKeystrokes)/5*60/duration);
+            let accuracy = Number(((correctKeystrokes)/(correctKeystrokes+incorrectKeystrokes)*100).toFixed(2));
+
+            //update react state variables
             setDisplayCorrectKeystrokes(correctKeystrokes)
             setDisplayIncorrectKeystrokes(incorrectKeystrokes)
             setLineChartXData(timeStampsArray)
             setLineChartYData(grosswpmArray);
             setData(newData)
             setHeatMapData(tempHeatMapData);
-            setWpm(correctKeystrokes);
+            setWpm(wordsPerMinute);
+            setCorrectWpm(correctWordsPerMinute);
+            setAccuracy(accuracy)
             setTestDuration(Math.round(new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0])));
 
             //count correct words
@@ -120,6 +133,23 @@ const Results = () => {
                 if (el === wordBank[idx].word) correctWords++
             })
             // if (viewResults) AOS.init({duration: 2000});
+
+
+console.log("user info ", user)
+            // // update the test results cluster
+            // fetch('http://localhost:3000/api/testCompleted', {
+            //     method: 'PUT',
+            //     headers: {
+            //       'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         "id": user._id,
+            //         "date": new Date(),
+            //         "wpm": wordsPerMinute,
+            //         "accuracy": accuracy,
+            //         "duration": duration
+            //     }),
+            //   })
         }
     },[testResults, viewResults, wordResultsArray])
 
@@ -171,17 +201,15 @@ const Results = () => {
     >
 
         <>
-        <div>Total WPM: {Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)))}</div>
-        <div>Correct WPM: {Math.round((displayCorrectKeystrokes-displayIncorrectKeystrokes)/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)))}</div>
-        <div>Accuracy: {Math.round(1-displayIncorrectKeystrokes/displayCorrectKeystrokes,2)*100}%</div>
+        <div>Total WPM: {wpm}</div>
+        <div>Correct WPM: {correctWpm}</div>
+        <div>Accuracy: {accuracy}%</div>
         {/* <div>{JSON.stringify(data)}</div> */}
         <div>
-            {
-                Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000))) > 40 ? <>+</> : <>-</> 
-            } 
-            {(Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)))/40 - 1)*100}
+            { wpm > 40 ? <>+</> : <>-</> } 
+            {(wpm/40 - 1)*100}
             %
-            {Math.round(displayCorrectKeystrokes/5*60/(Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)), 2) > 40 ? <> faster </> : <> slower </> }
+            {wpm > 40 ? <> faster </> : <> slower </> }
             than average
         </div>
         <button onClick={handleClick}>Try Again</button>

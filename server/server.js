@@ -49,10 +49,28 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+
+const timedTestResult= require('./models/timedTestResultsModel')
+app.put('/api/testCompleted', (req, res) => {
+  const {id, date, wpm, accuracy, duration} = req.body
+  timedTestResult.create({
+    id: id,
+    date: date,
+    wpm: wpm,
+    accuracy: accuracy,
+    duration: duration
+  })
+})
+
 app.get('/api/user', (req, res) => {
-  const user = req.session.user;
+  const user = req.user;
+  console.log("server user", user)
   res.status(200).json(user);
 });
+
+
 
 const authRoutes = require('./routes/authRoutes');
 // Use the OAuth routes

@@ -14,8 +14,6 @@ passport.deserializeUser((id, done) => {
   })
 });
 
-
-
 //we want to use the google api to authenticate people
 //we need client id and client secret
 passport.use(new GoogleStrategy({

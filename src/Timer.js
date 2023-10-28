@@ -35,7 +35,7 @@ const handleClick = () => {
       //Give a min of 30 seconds for the test
       // setSeconds(Math.max(30, seconds))
       setEditTime(false);
-      setTestDuration(seconds);
+      setTestDuration(Number(document.getElementById('time-input').value));
     } 
   }
   
