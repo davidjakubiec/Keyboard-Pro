@@ -5,6 +5,7 @@ import WordBank from '../WordBank';
 import Timer from '../Timer'
 import Results from '../Results'
 import BarChart from '../BarChart';
+import TimeTestResultsBarChart from "../components/TimeTestResultsBarChart";
 
 import OAuthButton from '../OauthButton';
 

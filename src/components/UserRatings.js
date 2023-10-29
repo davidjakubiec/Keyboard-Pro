@@ -1,27 +1,42 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
+import { Context } from '../App'
 
 const UserRatings = () => {
+    const {userHistory} = useContext(Context);
 
-    const container = document.getElementById('user-info-container');
-    // const containerDimensions = Math.min(container.width, container.height)
+    const [highestWpm, setHighestWpm] = useState(0);
+    const [highestWpmAccuracy, setHighestWpmAccuracy] = useState(0);
+    const [numTests, setNumTests] = useState(0);
 
-    const containerStyle = {
-        width: "100%",
-        height: "100%"
-      };
+    useEffect(() => {
+        let fastestWpm = 0;
+        let fastestIdx = 0;
+        if (userHistory) {
+            for (let i = 0; i < userHistory.length; i++) {
+                if (userHistory[i].wpm > fastestWpm) {
+                    fastestWpm = userHistory[i].wpm;
+                    fastestIdx = i;
+                }
+            }
+            setHighestWpm(fastestWpm)
+            setHighestWpmAccuracy(userHistory[fastestIdx].accuracy)
+            setNumTests(userHistory.length);
+        }
+
+    },[userHistory])
 
   return (
     <div className='user-info-container' id='user-info-container'>
         <div className='user-info-subcontainer'>
-            <div className='user-info-subcontainer-large-font'>130</div>
+            <div className='user-info-subcontainer-large-font'>{highestWpm}</div>
             <div className='user-info-subcontainer-small-font'>wpm</div>
         </div>
         <div className='user-info-subcontainer'>
-            <div className='user-info-subcontainer-large-font'>100</div>
+            <div className='user-info-subcontainer-large-font'>{highestWpmAccuracy}</div>
             <div className='user-info-subcontainer-small-font'>%</div>
         </div>
         <div className='user-info-subcontainer'>
-            <div className='user-info-subcontainer-large-font'>12</div>
+            <div className='user-info-subcontainer-large-font'>{numTests}</div>
             <div className='user-info-subcontainer-small-font'>tests</div>
         </div>
         <div className='user-info-subcontainer'>
