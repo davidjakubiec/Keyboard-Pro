@@ -101,7 +101,7 @@ body {
 }
 
 .test-results {
-    height: 70vh;
+    // height: 70vh;
     
     // background-color: pink;
 }
@@ -312,4 +312,14 @@ body {
     align-items: center;
     background-color: orange;
     height: 60vh
+}
+
+.results-container {
+    display:flex;
+    // background-color: pink;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 80vw;
+
 }

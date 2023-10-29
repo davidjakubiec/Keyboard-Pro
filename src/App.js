@@ -48,10 +48,11 @@ export function App() {
     const [slowestCombination, setSlowestCombination] = useState([]);
     const [user, setUser] = useState();
     const [userHistory, setUserHistory] = useState();
+    const [byLetterBarChartData, setByLetterBarChartData] = useState([]);
 
     const contextObject = { editTime, setEditTime, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, letterIdx, setLetterIdx, 
         wordBank, setWordBank, testResults, setTestResults, testInProgress, setTestInProgress, viewResults, setViewResults, wordResultsArray, 
-        userHistory, setUserHistory, user, setUser, slowestCombination, setSlowestCombination, xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData
+        byLetterBarChartData, setByLetterBarChartData, userHistory, setUserHistory, user, setUser, slowestCombination, setSlowestCombination, xModal, setXModal, yModal, setYModal, hovering, setHovering, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, setWordResultsArray, seconds, setSeconds, heatMapData, setHeatMapData, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData
     }
 
     const router = createBrowserRouter(

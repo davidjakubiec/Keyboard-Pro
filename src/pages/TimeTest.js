@@ -33,13 +33,15 @@ const TimeTest = () => {
                 </div>
             </section>
             :
-            <div>   
+            <div> 
+                <div className="results-container">  
             <section className='test-results'>
                 <Results />
             </section>
             <section className='test-barchart' id='test-barchart'>
-                <BarChart />
+                <TimeTestResultsBarChart />
             </section>
+            </div>
             {/* <section className='test-heatmap'>
                 <HeatMap />
             </section> */}

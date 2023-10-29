@@ -10,7 +10,7 @@ import { motion, useInView, useAnimation } from "framer-motion";
 
 const Results = () => {
 
-    const { user, slowestCombination, setSlowestCombination, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData, heatMapData, setHeatMapData, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
+    const { byLetterBarChartData, setByLetterBarChartData, user, slowestCombination, setSlowestCombination, medianTypingSpeed, setMedianTypingSpeed, testDuration, setTestDuration, displayCorrectKeystrokes, setDisplayCorrectKeystrokes, wpm, setWpm, lineChartYData, setLineChartYData, lineChartXData, setLineChartXData, heatMapData, setHeatMapData, colorsArray, setColorsArray, data, setData, text, setText, wordIdx, setWordIdx, viewResults, setViewResults, testResults, setTestResults, wordResultsArray, setWordResultsArray , wordBank, setWordBank, setLetterIdx, seconds, setSeconds } = useContext(Context)
     const keystrokes = Object.keys(testResults).length;
 
     const [displayIncorrectKeystrokes, setDisplayIncorrectKeystrokes] = useState(0);
@@ -27,6 +27,10 @@ const Results = () => {
     let tempXaxis = [];
     let typingSpeedArray = [];
     let slowestCombinationArray = [];
+    let frequencyOfLetters = {};
+    let averageTimePerLetter = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+    let timeTestBarChartData = [];
+    let numSpaces = 0;
 
     let slowestWord = "";
     let slowestWordTime = -Infinity;
@@ -34,6 +38,40 @@ const Results = () => {
 
     let wordsPerMinute;
     let correctWordsPerMinute;
+
+    function letterToIndex(letter) {
+        const charCodeA = 'A'.charCodeAt(0); // Unicode value of 'A'
+        const charCodeLowerCaseA = 'a'.charCodeAt(0); // Unicode value of 'a'
+      
+        // Get the Unicode value of the input letter
+        const charCode = letter.toUpperCase().charCodeAt(0);
+      
+        // Calculate the index based on the Unicode value of the letter
+        if (charCode >= charCodeA && charCode <= charCodeA + 25) {
+          // Uppercase letter (A-Z)
+          return charCode - charCodeA;
+        } else if (charCode >= charCodeLowerCaseA && charCode <= charCodeLowerCaseA + 25) {
+          // Lowercase letter (a-z)
+          return charCode - charCodeLowerCaseA;
+        } else {
+          // Not a valid letter
+          return -1;
+        }
+      }
+
+      function indexToLetter(index) {
+        if (index >= 0 && index < 26) {
+          // Valid index (0-25)
+          const charCodeA = 'A'.charCodeAt(0); // Unicode value of 'A'
+          // Calculate the Unicode value of the corresponding letter and convert it to a character
+          return String.fromCharCode(charCodeA + index);
+        } else {
+          // Invalid index
+          return null;
+        }
+      }
+      
+
 
     // useEffect(() => {
     //     AOS.init({duration: 2000});
@@ -44,6 +82,7 @@ const Results = () => {
         incorrectKeystrokes = 0;
         correctWords = 0;
         testResultsArray = Object.values(testResults);
+        console.log('test results array', testResultsArray)
 
 
         if (viewResults) {
@@ -51,8 +90,28 @@ const Results = () => {
             testResultsArray.forEach((el, idx) => 
             {
                 //count correct, incorrect, and backspace strokes
-                if (el.correct) correctKeystrokes++
-                else if (el.typedInputLetter != 'Backspace') incorrectKeystrokes++
+                if (el.correct) {
+                    correctKeystrokes++
+                    //fill out by letter array
+                    //check to see if letter exists in object
+                    // { letter: 'A', time: 100 },
+                    if(idx > 0) {
+                        let timeElapsed = new Date(timeStampsArray[idx])-new Date(timeStampsArray[idx-1])
+                        // if (!frequencyOfLetters[el.typedInputLetter]) {
+                        //     frequencyOfLetters[el.typedInputLetter] = 1;
+                        //     averageTimePerLetter[letterToIndex(el.typedInputLetter)] = timeElapsed
+                        // } else {
+                        //     frequencyOfLetters[el.typedInputLetter]++;
+                        //     averageTimePerLetter[letterToIndex(el.typedInputLetter)] = averageTimePerLetter[letterToIndex(el.typedInputLetter)]
+                        // }
+                        if (!averageTimePerLetter[letterToIndex(el.typedInputLetter)]) averageTimePerLetter[letterToIndex(el.typedInputLetter)] = [];
+                        averageTimePerLetter[letterToIndex(el.typedInputLetter)].push(timeElapsed);
+                    }
+ 
+                }
+                else if (el.typedInputLetter != 'Backspace' && el.typedInputLetter!= " ") incorrectKeystrokes++
+                else if (el.typedInputLetter == " ") numSpaces++
+                console.log("num spaces", numSpaces)
                 tempColorsArray.push(el.color);
 
                 //find the slowest word
@@ -62,6 +121,26 @@ const Results = () => {
                     // heatMapData[testResultsArray.typedInputLetter]
                 }
             })
+            // //calculate average for each element of averageTimePerLetter array
+            for (let i = 0; i < averageTimePerLetter.length; i++) {
+                let sum = 0;
+                let size = averageTimePerLetter[i].length;
+                for(let j = 0; j < averageTimePerLetter[i].length; j++) {
+                    sum += averageTimePerLetter[i][j];
+                }
+                averageTimePerLetter[i] = sum/size;
+            }
+            // //update TimeTestBarChart data object
+            for (let i = 0; i < averageTimePerLetter.length; i++) {
+                timeTestBarChartData.push({
+                    'letter': indexToLetter(i),
+                    'time': averageTimePerLetter[i]
+                })
+            }
+
+            //update the state variable
+            setByLetterBarChartData(timeTestBarChartData);
+
             setColorsArray(tempColorsArray);
 
             const newData = []
@@ -114,7 +193,7 @@ const Results = () => {
             let duration = Math.round((new Date(timeStampsArray[timeStampsArray.length-1]) - new Date(timeStampsArray[0]))/1000)
             wordsPerMinute = Math.round(correctKeystrokes/5*60/duration)
             correctWordsPerMinute = Math.round((correctKeystrokes-incorrectKeystrokes)/5*60/duration);
-            let accuracy = Number(((correctKeystrokes)/(correctKeystrokes+incorrectKeystrokes)*100).toFixed(2));
+            let accuracy = Math.round(correctWordsPerMinute/wordsPerMinute*100);
 
             //update react state variables
             setDisplayCorrectKeystrokes(correctKeystrokes)
@@ -137,19 +216,19 @@ const Results = () => {
 
 console.log("user info ", user)
             // update the test results cluster
-            fetch('http://localhost:3000/api/testCompleted', {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "id": user._id,
-                    "date": new Date(),
-                    "wpm": wordsPerMinute,
-                    "accuracy": accuracy,
-                    "duration": duration
-                }),
-              })
+            // fetch('http://localhost:3000/api/testCompleted', {
+            //     method: 'PUT',
+            //     headers: {
+            //       'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         "id": user._id,
+            //         "date": new Date(),
+            //         "wpm": wordsPerMinute,
+            //         "accuracy": accuracy,
+            //         "duration": duration
+            //     }),
+            //   })
         }
     },[testResults, viewResults, wordResultsArray])
 
@@ -206,8 +285,8 @@ console.log("user info ", user)
         <div>Accuracy: {accuracy}%</div>
         {/* <div>{JSON.stringify(data)}</div> */}
         <div>
-            { wpm > 40 ? <>+</> : <>-</> } 
-            {(wpm/40 - 1)*100}
+            { wpm > 40 ? <>+</> : <></> } 
+            {Math.round((wpm/40 - 1)*100)}
             %
             {wpm > 40 ? <> faster </> : <> slower </> }
             than average
@@ -215,7 +294,7 @@ console.log("user info ", user)
         <button onClick={handleClick}>Try Again</button>
         </>
         
-    </motion.div>
+ </motion.div>
   )
 }
 

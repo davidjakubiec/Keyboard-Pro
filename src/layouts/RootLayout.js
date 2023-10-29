@@ -9,14 +9,14 @@ const RootLayout = () => {
     <div className='root-layout'>
         <header>
             <nav className='nav-bar'>
-                <NavLink className='nav-bar-link' to='/'>Time Test</NavLink>
-                <NavLink className='nav-bar-link' to='profile'>Profile</NavLink>
+                {/* <NavLink className='nav-bar-link' to='/'>Time Test</NavLink> */}
+                {/* <NavLink className='nav-bar-link' to='profile'>Profile</NavLink> */}
                 {/* <NavLink className='nav-bar-link' to='help'>Help</NavLink>
                 <NavLink className='nav-bar-link' to='careers'>Careers</NavLink> */}
                 {/* <OAuthButton /> */}
-                <GoogleButton />
+                {/* <GoogleButton /> */}
             </nav>
-            <Breadcrumbs />
+            {/* <Breadcrumbs /> */}
         </header>
 
         <main>
