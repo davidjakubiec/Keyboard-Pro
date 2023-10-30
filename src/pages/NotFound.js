@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const NotFound = () => {
   useEffect(() => {
-  window.location.href = 'http://localhost:3010'
+  window.location.href = 'https://davidjakubiec.github.io/Keyboard-Pro/'
 },[])
   return (
     <div>
